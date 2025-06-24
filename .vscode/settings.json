@@ -1,0 +1,33 @@
+{
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"files.autoSave": "off",
+	"[yaml]": {
+	  "editor.tabSize": 2,
+	  "editor.insertSpaces": true
+	},
+	"[json]": {
+	  "editor.tabSize": 2,
+	  "editor.insertSpaces": true
+	},
+	"editor.codeActionsOnSave": {
+  		"source.fixAll.eslint": "explicit",
+		"source.fixAll": "always",
+	},
+	"editor.formatOnSave": true,
+	"[prisma]": {
+	  "editor.defaultFormatter": "Prisma.prisma"
+	},
+	"vue.codeActions.askNewComponentName": false,
+	"prettier.enable": false,
+	"javascript.format.enable": false,
+	"typescript.format.enable": false,
+	"html.format.enable": false,
+	"json.format.enable": false,
+	"eslint.workingDirectories": [
+	  "./front",
+	],
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+  }
