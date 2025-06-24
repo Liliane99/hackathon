@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "clear": "./scripts/clear.sh"
+    "clear": "./scripts/clear.sh",
+    "dev:next": "npm run -w next dev"
   },
   "workspaces": [
-    "front"
+    "next"
   ]
 }

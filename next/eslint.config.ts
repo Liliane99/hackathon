@@ -1,6 +1,5 @@
 import path from "path";
 import { fileURLToPath } from "url";
-
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 
@@ -167,7 +166,7 @@ export default [
           "sibling",
           "index",
         ],
-        "newlines-between": "always",
+        "newlines-between": "never",
       }],
     },
   },

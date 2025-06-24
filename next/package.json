@@ -1,5 +1,5 @@
 {
-  "name": "front",
+  "name": "next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mongodb": "6.17.0",
     "next": "15.3.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -18,9 +19,9 @@
     "@eslint/eslintrc": "3",
     "@stylistic/eslint-plugin": "5.0.0",
     "@tailwindcss/postcss": "4",
-    "@types/node": "20",
-    "@types/react": "19",
-    "@types/react-dom": "19",
+    "@types/node": "20.0.0",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.0",
     "eslint": "9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "4",

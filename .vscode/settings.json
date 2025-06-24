@@ -12,13 +12,10 @@
 	  "editor.insertSpaces": true
 	},
 	  "eslint.useFlatConfig": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-	"editor.formatOnSave": true,
-	"[prisma]": {
-	  "editor.defaultFormatter": "Prisma.prisma"
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
 	},
+	"editor.formatOnSave": true,
 	"vue.codeActions.askNewComponentName": false,
 	"prettier.enable": false,
 	"javascript.format.enable": false,
@@ -27,8 +24,8 @@
 	"html.format.enable": false,
 	"json.format.enable": false,
 	"eslint.workingDirectories": [
-	  "./front",
+	  "./next",
 	],
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+	"eslint.validate": ["typescript", "typescriptreact"]
   }
