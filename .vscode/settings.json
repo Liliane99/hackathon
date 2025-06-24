@@ -11,10 +11,10 @@
 	  "editor.tabSize": 2,
 	  "editor.insertSpaces": true
 	},
-	"editor.codeActionsOnSave": {
-  		"source.fixAll.eslint": "explicit",
-		"source.fixAll": "always",
-	},
+	  "eslint.useFlatConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
 	"editor.formatOnSave": true,
 	"[prisma]": {
 	  "editor.defaultFormatter": "Prisma.prisma"
@@ -22,6 +22,7 @@
 	"vue.codeActions.askNewComponentName": false,
 	"prettier.enable": false,
 	"javascript.format.enable": false,
+	"eslint.format.enable": true,
 	"typescript.format.enable": false,
 	"html.format.enable": false,
 	"json.format.enable": false,

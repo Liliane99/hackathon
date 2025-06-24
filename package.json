@@ -1,0 +1,11 @@
+{
+  "name": "hackathon",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "clear": "./scripts/clear.sh"
+  },
+  "workspaces": [
+    "front"
+  ]
+}
