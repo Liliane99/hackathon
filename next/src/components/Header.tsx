@@ -22,13 +22,13 @@ const Header = () => {
           <nav className="hidden md:flex space-x-8">
 		  	<Link
 				href="/about"
-				className="text-sm font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-xl text-white px-3 py-2 transition-colors"
+				className="text-sm font-medium bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-xl text-white px-3 py-2 transition-colors"
 				>
 				Créer un agent
 			</Link>
             <Link 
               href="/" 
-			  className="text-sm font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-xl text-white px-3 py-2 transition-colors"
+			  className="text-sm font-medium bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-xl text-white px-3 py-2 transition-colors"
 			  >
               Chercher un agent
             </Link>
