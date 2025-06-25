@@ -8,8 +8,5 @@
   },
   "workspaces": [
     "next"
-  ],
-  "dependencies": {
-    "@hookform/resolvers": "^5.1.1"
-  }
+  ]
 }
