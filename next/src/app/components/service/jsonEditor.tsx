@@ -131,77 +131,88 @@ export default function JsonEditor() {
         )}
       </div>
 
-      <div className="w-1/2">
-        <h2 className="text-lg font-semibold mb-4">
-          Aperçu du formulaire
-          {parsedFields.length > 0 && (
-            <span className="text-sm text-gray-500 ml-2">
-              ({parsedFields.length} champ{parsedFields.length > 1 ? 's' : ''})
-            </span>
-          )}
-          {error && error.includes('erreur de syntaxe') && (
-            <span className="text-xs text-red-500 ml-2 font-normal">
-              (Version figée)
-            </span>
-          )}
-        </h2>
-        {parsedFields.length > 0 ? (
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {parsedFields.map((field) => {
-              // Vérification de sécurité pour éviter les erreurs undefined
-              if (!field || !field.name || !field.type) {
-                console.warn("Champ invalide ignoré:", field);
-                return null;
-              }
+      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg p-6 space-y-5">
+  <div className="flex items-center justify-between pb-3">
+    <h3 className="text-lg font-medium text-slate-200">
+      Aperçu du formulaire
+    </h3>
+    {parsedFields.length > 0 && (
+      <span className="px-2 py-1 bg-violet-500/20 text-violet-300 text-sm rounded border border-violet-500/30">
+        {parsedFields.length} champ{parsedFields.length > 1 ? 's' : ''}
+      </span>
+    )}
+    {error && error.includes('erreur de syntaxe') && (
+      <span className="px-2 py-1 bg-amber-500/20 text-amber-300 text-sm rounded border border-amber-500/30">
+        Version figée
+      </span>
+    )}
+  </div>
 
-              return (
-                <div key={field.name} className="flex flex-col">
-                  <label className="mb-1 font-medium">{field.label}</label>
-                  {field.type === 'select' ? (
-                    <select
-                      {...register(field.name, {
-                        required: field.required ?? false,
-                      })}
-                      className="border rounded p-2"
-                    >
-                      <option value="">Sélectionnez...</option>
-                      {'options' in field && Array.isArray(field.options) && field.options.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    <input
-                      type={field.type}
-                      {...register(field.name, {
-                        required: field.required ?? false,
-                      })}
-                      className="border rounded p-2"
-                      {...(field.type === 'number' && 'min' in field && field.min !== undefined ? { min: field.min } : {})}
-                      {...(field.type === 'number' && 'max' in field && field.max !== undefined ? { max: field.max } : {})}
-                    />
-                  )}
-                  {errors[field.name] && (
-                    <span className="text-red-500 text-sm">
-                      Ce champ est requis
-                    </span>
-                  )}
-                </div>
-              );
-            }).filter(Boolean)}
-
-            <button
-              type="submit"
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              Envoyer
-            </button>
-          </form>
-        ) : (
-          <p className="text-gray-500 italic">Aucun champ valide à afficher.</p>
-        )}
+  {parsedFields.length > 0 ? (
+    <form className="space-y-4">
+      {parsedFields.map((field) => {
+        // Vérification de sécurité pour éviter les erreurs undefined
+        if (!field || !field.name || !field.type) {
+          console.warn("Champ invalide ignoré:", field);
+          return null;
+        }
+        
+        return (
+          <div key={field.name} className="space-y-2">
+            <label className="block text-sm font-medium text-slate-300">
+              {field.label}
+            </label>
+            {field.type === 'select' ? (
+              <select
+                name={field.name}
+                required={field.required}
+                className="w-full px-3 py-2 rounded border border-slate-600 bg-slate-700/50 text-slate-200
+                         focus:border-violet-400 focus:ring-1 focus:ring-violet-400/50 focus:outline-none
+                         transition-colors"
+              >
+                <option value="">Sélectionnez...</option>
+                {'options' in field && Array.isArray(field.options) && field.options.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type={field.type}
+                name={field.name}
+                required={field.required}
+                placeholder={field.placeholder}
+                className="w-full px-3 py-2 rounded border border-slate-600 bg-slate-700/50 text-slate-200
+                         focus:border-violet-400 focus:ring-1 focus:ring-violet-400/50 focus:outline-none
+                         transition-colors placeholder:text-slate-400"
+              />
+            )}
+            {errors[field.name] && (
+              <p className="text-sm text-red-400">
+                Ce champ est requis
+              </p>
+            )}
+          </div>
+        );
+      }).filter(Boolean)}
+      
+      <div className="pt-2">
+        <button
+          type="submit"
+          className="w-full py-2 px-4 bg-violet-600 hover:bg-violet-500 text-white rounded
+                   transition-colors font-medium"
+        >
+          Envoyer
+        </button>
       </div>
+    </form>
+  ) : (
+    <div className="text-center py-8">
+      <p className="text-slate-400">Aucun champ valide à afficher.</p>
+    </div>
+  )}
+</div>
     </div>
   );
 }
