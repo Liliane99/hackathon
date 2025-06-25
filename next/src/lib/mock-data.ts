@@ -1,0 +1,467 @@
+import { Service, Team, Project } from "@/types";
+
+export const humanServices: Service[] = [
+  {
+    id: "h1",
+    type: "human",
+    name: "Alex Rodriguez",
+    description: "Développeur React Senior avec 5 ans d'expérience en TypeScript, Next.js et écosystème React moderne",
+    contractor: {
+      id: "c1",
+      name: "Alex Rodriguez",
+      email: "alex.rodriguez@email.com",
+      phoneNumber: "+33 6 12 34 56 78"
+    },
+    pricePerDays: 450
+  },
+  {
+    id: "h2", 
+    type: "human",
+    name: "Sarah Chen",
+    description: "Product Owner expérimentée en méthodes agiles, Scrum Master certifiée avec expertise en gestion d'équipes tech",
+    contractor: {
+      id: "c2",
+      name: "Sarah Chen", 
+      email: "sarah.chen@email.com",
+      phoneNumber: "+33 6 23 45 67 89"
+    },
+    pricePerDays: 500
+  },
+  {
+    id: "h3",
+    type: "human", 
+    name: "Thomas Dubois",
+    description: "Développeur Laravel Backend avec expertise DevOps, Docker, Kubernetes et architecture microservices",
+    contractor: {
+      id: "c3",
+      name: "Thomas Dubois",
+      email: "thomas.dubois@email.com", 
+      phoneNumber: "+33 6 34 56 78 90"
+    },
+    pricePerDays: 420
+  },
+  {
+    id: "h4",
+    type: "human",
+    name: "Marie Martin", 
+    description: "Responsable RH spécialisée en recrutement tech, gestion des talents et développement d'équipes",
+    contractor: {
+      id: "c4",
+      name: "Marie Martin",
+      email: "marie.martin@email.com",
+      phoneNumber: "+33 6 45 67 89 01" 
+    },
+    pricePerDays: 380
+  },
+  {
+    id: "h5",
+    type: "human",
+    name: "David Kim",
+    description: "Designer UX/UI avec expertise en design systems, Figma, recherche utilisateur et prototypage",
+    contractor: {
+      id: "c5", 
+      name: "David Kim",
+      email: "david.kim@email.com",
+      phoneNumber: "+33 6 56 78 90 12"
+    },
+    pricePerDays: 400
+  },
+  {
+    id: "h6",
+    type: "human",
+    name: "Julie Lefebvre", 
+    description: "Développeuse Vue.js avec expertise en performance web, PWA et optimisation frontend",
+    contractor: {
+      id: "c6",
+      name: "Julie Lefebvre",
+      email: "julie.lefebvre@email.com",
+      phoneNumber: "+33 6 67 78 89 01"
+    },
+    pricePerDays: 430
+  },
+  {
+    id: "h7",
+    type: "human",
+    name: "Kevin Patel",
+    description: "Développeur Angular Senior, spécialiste PWA et applications web modernes",
+    contractor: {
+      id: "c7", 
+      name: "Kevin Patel",
+      email: "kevin.patel@email.com",
+      phoneNumber: "+33 6 78 89 01 23"
+    },
+    pricePerDays: 460
+  },
+  {
+    id: "h8",
+    type: "human",
+    name: "Amelia Johnson",
+    description: "Développeuse Node.js avec expertise microservices, MongoDB et architecture scalable",
+    contractor: {
+      id: "c8",
+      name: "Amelia Johnson", 
+      email: "amelia.johnson@email.com",
+      phoneNumber: "+33 6 89 01 23 45"
+    },
+    pricePerDays: 440
+  },
+  {
+    id: "h9", 
+    type: "human",
+    name: "Pierre Moreau",
+    description: "Consultant RH spécialisé en transformation digitale et accompagnement des équipes tech",
+    contractor: {
+      id: "c9",
+      name: "Pierre Moreau",
+      email: "pierre.moreau@email.com",
+      phoneNumber: "+33 6 90 12 34 56"
+    },
+    pricePerDays: 390
+  },
+  {
+    id: "h10",
+    type: "human",
+    name: "Emma Wilson",
+    description: "QA Engineer avec expertise en automatisation des tests, Cypress, Jest et testing strategy",
+    contractor: {
+      id: "c10",
+      name: "Emma Wilson",
+      email: "emma.wilson@email.com",
+      phoneNumber: "+33 6 01 23 45 67"
+    },
+    pricePerDays: 360
+  }
+];
+
+export const aiServices: Service[] = [
+  {
+    id: "ai1",
+    type: "ai",
+    name: "HireBot Pro",
+    description: "Agent IA spécialisé dans la création d'offres d'emploi optimisées et attractives pour le recrutement tech",
+    contractor: {
+      id: "ai-c1",
+      name: "TechAI Solutions",
+      email: "contact@techai.com", 
+      phoneNumber: "+33 1 23 45 67 89"
+    },
+    agentAi: {
+      id: "hire-bot-pro",
+      endpointUrl: "https://api.techai.com/hirebot",
+      modelName: "HireBot-v2.1",
+      inputParameters: ["job_title", "requirements", "company_culture", "salary_range", "benefits"],
+      outputParameters: ["job_description", "requirements_list", "benefits_list", "application_process", "seo_keywords"]
+    },
+    price: 49
+  },
+  {
+    id: "ai2", 
+    type: "ai",
+    name: "InterviewMaster",
+    description: "IA générant des questions d'entretien personnalisées par poste avec évaluation des compétences",
+    contractor: {
+      id: "ai-c2",
+      name: "SmartHR Tech",
+      email: "contact@smarthrtech.com",
+      phoneNumber: "+33 1 34 56 78 90" 
+    },
+    agentAi: {
+      id: "interview-master",
+      endpointUrl: "https://api.smarthrtech.com/interview",
+      modelName: "InterviewMaster-v3.0", 
+      inputParameters: ["position", "seniority", "skills_required", "interview_type", "company_context"],
+      outputParameters: ["technical_questions", "behavioral_questions", "situational_questions", "evaluation_criteria", "scoring_rubric"]
+    },
+    price: 35
+  },
+  {
+    id: "ai3",
+    type: "ai",
+    name: "CodeReviewer AI",
+    description: "Agent IA pour la revue de code automatisée, détection de bugs et suggestions d'amélioration",
+    contractor: {
+      id: "ai-c3",
+      name: "DevTools AI",
+      email: "contact@devtoolsai.com",
+      phoneNumber: "+33 1 45 67 89 01"
+    },
+    agentAi: {
+      id: "code-reviewer",
+      endpointUrl: "https://api.devtoolsai.com/review",
+      modelName: "CodeReviewer-v1.5",
+      inputParameters: ["code_language", "code_content", "review_level", "style_guide"],
+      outputParameters: ["bug_detection", "improvement_suggestions", "performance_tips", "security_analysis"]
+    },
+    price: 89
+  },
+  {
+    id: "ai4",
+    type: "ai",
+    name: "ProjectPlanner AI",
+    description: "IA de planification de projet avec estimation des délais et allocation des ressources",
+    contractor: {
+      id: "ai-c4",
+      name: "ProjectAI Corp",
+      email: "contact@projectai.com",
+      phoneNumber: "+33 1 56 78 90 12"
+    },
+    agentAi: {
+      id: "project-planner",
+      endpointUrl: "https://api.projectai.com/plan",
+      modelName: "ProjectPlanner-v2.0",
+      inputParameters: ["project_scope", "team_size", "technologies", "deadline", "complexity"],
+      outputParameters: ["timeline", "milestones", "resource_allocation", "risk_assessment", "deliverables"]
+    },
+    price: 120
+  }
+];
+
+export const alternativeProfiles: Record<string, Service[]> = {
+  frontend: [
+    {
+      id: "h11",
+      type: "human",
+      name: "Julie Lefebvre", 
+      description: "Développeuse Vue.js avec expertise en performance web, PWA et optimisation frontend",
+      contractor: {
+        id: "c11",
+        name: "Julie Lefebvre",
+        email: "julie.lefebvre@email.com",
+        phoneNumber: "+33 6 67 78 89 01"
+      },
+      pricePerDays: 430
+    },
+    {
+      id: "h12",
+      type: "human",
+      name: "Kevin Patel",
+      description: "Développeur Angular Senior, spécialiste PWA et applications web modernes",
+      contractor: {
+        id: "c12", 
+        name: "Kevin Patel",
+        email: "kevin.patel@email.com",
+        phoneNumber: "+33 6 78 89 01 23"
+      },
+      pricePerDays: 460
+    }
+  ],
+  backend: [
+    {
+      id: "h13",
+      type: "human",
+      name: "Amelia Johnson",
+      description: "Développeuse Node.js avec expertise microservices, MongoDB et architecture scalable",
+      contractor: {
+        id: "c13",
+        name: "Amelia Johnson", 
+        email: "amelia.johnson@email.com",
+        phoneNumber: "+33 6 89 01 23 45"
+      },
+      pricePerDays: 440
+    }
+  ],
+  rh: [
+    {
+      id: "h14", 
+      type: "human",
+      name: "Pierre Moreau",
+      description: "Consultant RH spécialisé en transformation digitale et accompagnement des équipes tech",
+      contractor: {
+        id: "c14",
+        name: "Pierre Moreau",
+        email: "pierre.moreau@email.com",
+        phoneNumber: "+33 6 90 12 34 56"
+      },
+      pricePerDays: 390
+    }
+  ],
+  design: [
+    {
+      id: "h15",
+      type: "human",
+      name: "Sophie Laurent",
+      description: "UI Designer spécialisée en design mobile et interfaces modernes",
+      contractor: {
+        id: "c15",
+        name: "Sophie Laurent",
+        email: "sophie.laurent@email.com",
+        phoneNumber: "+33 6 11 22 33 44"
+      },
+      pricePerDays: 380
+    }
+  ],
+  qa: [
+    {
+      id: "h16",
+      type: "human",
+      name: "Emma Wilson",
+      description: "QA Engineer avec expertise en automatisation des tests, Cypress, Jest et testing strategy",
+      contractor: {
+        id: "c16",
+        name: "Emma Wilson",
+        email: "emma.wilson@email.com",
+        phoneNumber: "+33 6 01 23 45 67"
+      },
+      pricePerDays: 360
+    }
+  ],
+  management: [
+    {
+      id: "h17",
+      type: "human",
+      name: "Lucas Martinez",
+      description: "Scrum Master certifié avec expertise en transformation agile",
+      contractor: {
+        id: "c17",
+        name: "Lucas Martinez",
+        email: "lucas.martinez@email.com",
+        phoneNumber: "+33 6 22 33 44 55"
+      },
+      pricePerDays: 480
+    }
+  ]
+};
+
+export const mockTeam: Team = {
+  id: "team-1",
+  projectId: "project-1", 
+  name: "Équipe Développement Web + RH",
+  description: "Équipe complète pour développer une plateforme e-commerce avec gestion RH intégrée",
+  status: "building",
+  slots: [
+    {
+      id: "slot-1",
+      role: "Chef de Projet / Product Owner",
+      category: "management", 
+      isRequired: true,
+      isAssigned: true,
+      assignedService: humanServices[1],
+      requirements: ["Agile", "Scrum", "Leadership", "Product Management"],
+      seniority: "senior",
+      description: "Responsable de la coordination projet et de la définition du produit",
+      estimatedWorkload: "Temps plein"
+    },
+    {
+      id: "slot-2", 
+      role: "Développeur Frontend React",
+      category: "frontend",
+      isRequired: true,
+      isAssigned: true, 
+      assignedService: humanServices[0], 
+      requirements: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
+      seniority: "senior",
+      description: "Développement de l'interface utilisateur et expérience client",
+      estimatedWorkload: "Temps plein"
+    },
+    {
+      id: "slot-3",
+      role: "Développeur Backend Laravel", 
+      category: "backend",
+      isRequired: true,
+      isAssigned: true,
+      assignedService: humanServices[2],
+      requirements: ["Laravel", "PHP", "MySQL", "Docker", "API REST"],
+      seniority: "mid",
+      description: "Développement des APIs et architecture backend",
+      estimatedWorkload: "Temps plein"
+    },
+    {
+      id: "slot-4",
+      role: "Responsable RH",
+      category: "rh", 
+      isRequired: true,
+      isAssigned: true,
+      assignedService: humanServices[3], 
+      requirements: ["Recrutement", "Gestion équipe", "Droit du travail", "Formation"],
+      seniority: "senior",
+      description: "Gestion des ressources humaines et recrutement",
+      estimatedWorkload: "50%"
+    },
+    {
+      id: "slot-5",
+      role: "Créateur d'offres d'emploi IA",
+      category: "rh",
+      isRequired: false, 
+      isAssigned: true,
+      assignedService: aiServices[0], 
+      requirements: ["Rédaction", "Marketing RH", "SEO"],
+      description: "Automatisation de la création d'offres d'emploi",
+    },
+    {
+      id: "slot-6", 
+      role: "Générateur de questions d'entretien IA",
+      category: "rh",
+      isRequired: false,
+      isAssigned: true,
+      assignedService: aiServices[1], 
+      requirements: ["Psychologie", "Évaluation compétences", "Questions techniques"],
+      description: "Génération automatique de questions d'entretien personnalisées",
+    },
+    {
+      id: "slot-7",
+      role: "Designer UX/UI",
+      category: "design",
+      isRequired: false,
+      isAssigned: true,
+      assignedService: humanServices[4], 
+      requirements: ["Figma", "Design System", "User Research", "Prototypage"],
+      seniority: "mid",
+      description: "Conception de l'expérience utilisateur et interface",
+      estimatedWorkload: "50%"
+    },
+    {
+      id: "slot-8",
+      role: "QA Engineer",
+      category: "qa",
+      isRequired: false,
+      isAssigned: false,
+      requirements: ["Tests automatisés", "Cypress", "Jest", "Test Strategy"],
+      seniority: "mid",
+      description: "Assurance qualité et tests",
+      estimatedWorkload: "50%"
+    }
+  ],
+  createdAt: new Date("2025-06-20"),
+  updatedAt: new Date(),
+  estimatedMonthlyCost: 28540,
+  estimatedDailyCost: 1427,
+};
+
+export const mockProject: Project = {
+  id: "project-1",
+  title: "Plateforme E-commerce + Équipe RH",
+  description: "Développement d'une plateforme e-commerce moderne avec système de gestion des ressources humaines intégré pour gérer le recrutement et la croissance de l'équipe",
+  requirements: {
+    description: "Site web en React frontend et Laravel backend, avec équipe RH pour recruter et gérer l'équipe de développement",
+    technologies: ["React", "Laravel", "MySQL", "Docker", "TypeScript", "Tailwind CSS"],
+    timeline: "6 mois", 
+    budget: 150000,
+    teamSize: 7,
+    priority: "high",
+    deliverables: [
+      "Interface utilisateur responsive",
+      "API REST complète", 
+      "Système de paiement",
+      "Panel d'administration",
+      "Module RH intégré",
+      "Tests automatisés"
+    ],
+    constraints: [
+      "Compatible mobile-first",
+      "Performance optimisée",
+      "Sécurité renforcée",
+      "Scalabilité prévue"
+    ]
+  },
+  ownerId: "owner-1",
+  ownerName: "Jean Dupont",
+  ownerEmail: "jean.dupont@entreprise.com",
+  status: "team_building",
+  createdAt: new Date("2025-06-15"),
+  updatedAt: new Date(),
+  estimatedDuration: "6 mois",
+  expectedEndDate: new Date("2025-12-15"),
+  tags: ["e-commerce", "rh", "web", "startup"],
+  industry: "E-commerce",
+  companySize: "small"
+};
