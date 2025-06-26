@@ -4,7 +4,7 @@ import { Badge } from "@/app/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import { Service } from "@/schemas/service";
-import Link from "next/link"; 
+import Link from "next/link";
 
 interface ProfileCardProps {
   service: Service;
@@ -50,7 +50,6 @@ export function ProfileCard({ service, onSelect }: ProfileCardProps) {
             Voir le service
           </Button>
 
-          
           <Link href={`/services/${service.id}`}>
             <Button variant="default">Commencer</Button>
           </Link>

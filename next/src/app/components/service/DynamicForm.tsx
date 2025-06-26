@@ -1,78 +1,79 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import { FormField } from '../../../schemas/formBuilder'
+import React, { useState } from "react";
+import { FormField } from "../../../schemas/formBuilder";
 
 interface DynamicFormProps {
-  fields: FormField[]
-  onSubmit: (data: Record<string, any>) => void
-  submitLabel?: string
-  className?: string
+  fields: FormField[];
+  onSubmit: (data: Record<string, any>) => void;
+  submitLabel?: string;
+  className?: string;
 }
 
-function isSelectField(field: FormField): field is Extract<FormField, { type: 'select' }> {
-  return field.type === 'select'
+function isSelectField(field: FormField): field is Extract<FormField, { type: "select" }> {
+  return field.type === "select";
 }
 
-export default function DynamicForm({ 
-  fields, 
-  onSubmit, 
+export default function DynamicForm({
+  fields,
+  onSubmit,
   submitLabel = "Soumettre",
-  className = ""
+  className = "",
 }: DynamicFormProps) {
-  const [formData, setFormData] = useState<Record<string, any>>({})
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [formData, setFormData] = useState<Record<string, any>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleInputChange = (name: string, value: any) => {
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData(prev => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }))
+      setErrors(prev => ({ ...prev, [name]: "" }));
     }
-  }
+  };
 
   const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {}
+    const newErrors: Record<string, string> = {};
 
-    fields.forEach(field => {
-      const value = formData[field.name]
-      
-      if (field.required && (!value || value === '')) {
-        newErrors[field.name] = `${field.label} est requis`
-        return
+    fields.forEach((field) => {
+      const value = formData[field.name];
+
+      if (field.required && (!value || value === "")) {
+        newErrors[field.name] = `${field.label} est requis`;
+        return;
       }
 
-      if (value && field.type === 'email') {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (value && field.type === "email") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-          newErrors[field.name] = 'Email invalide'
+          newErrors[field.name] = "Email invalide";
         }
       }
 
-      if (value && field.type === 'number') {
-        const numValue = Number(value)
+      if (value && field.type === "number") {
+        const numValue = Number(value);
         if (isNaN(numValue)) {
-          newErrors[field.name] = 'Doit être un nombre'
-        } else {
+          newErrors[field.name] = "Doit être un nombre";
+        }
+        else {
           if (field.min !== undefined && numValue < field.min) {
-            newErrors[field.name] = `Doit être supérieur ou égal à ${field.min}`
+            newErrors[field.name] = `Doit être supérieur ou égal à ${field.min}`;
           }
           if (field.max !== undefined && numValue > field.max) {
-            newErrors[field.name] = `Doit être inférieur ou égal à ${field.max}`
+            newErrors[field.name] = `Doit être inférieur ou égal à ${field.max}`;
           }
         }
       }
-    })
+    });
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (validateForm()) {
-      onSubmit(formData)
+      onSubmit(formData);
     }
-  }
+  };
 
   const renderField = (field: FormField) => {
     const baseClasses = `
@@ -81,78 +82,78 @@ export default function DynamicForm({
       text-foreground placeholder:text-muted-foreground
       focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent
       transition-colors duration-200
-    `
+    `;
 
-    const errorClasses = errors[field.name] ? 'border-destructive focus:ring-destructive' : ''
+    const errorClasses = errors[field.name] ? "border-destructive focus:ring-destructive" : "";
 
     switch (field.type) {
-      case 'text':
+      case "text":
         return (
           <input
             type="text"
             id={field.name}
             name={field.name}
-            value={formData[field.name] || ''}
-            onChange={(e) => handleInputChange(field.name, e.target.value)}
+            value={formData[field.name] || ""}
+            onChange={e => handleInputChange(field.name, e.target.value)}
             className={`${baseClasses} ${errorClasses}`}
             placeholder={field.placeholder}
             required={field.required}
           />
-        )
+        );
 
-	  case 'textarea':	
-		return (
-		  <textarea
-			id={field.name}
-			name={field.name}
-			value={formData[field.name] || ''}
-			onChange={(e) => handleInputChange(field.name, e.target.value)}
-			className={`${baseClasses} ${errorClasses}`}
-			placeholder={field.placeholder}
-			rows={field.rows}
-			cols={field.cols}
-			required={field.required}
-		  />
-		)
+      case "textarea":
+        return (
+          <textarea
+            id={field.name}
+            name={field.name}
+            value={formData[field.name] || ""}
+            onChange={e => handleInputChange(field.name, e.target.value)}
+            className={`${baseClasses} ${errorClasses}`}
+            placeholder={field.placeholder}
+            rows={field.rows}
+            cols={field.cols}
+            required={field.required}
+          />
+        );
 
-      case 'email':
+      case "email":
         return (
           <input
             type="email"
             id={field.name}
             name={field.name}
-            value={formData[field.name] || ''}
-            onChange={(e) => handleInputChange(field.name, e.target.value)}
+            value={formData[field.name] || ""}
+            onChange={e => handleInputChange(field.name, e.target.value)}
             className={`${baseClasses} ${errorClasses}`}
             placeholder="exemple@email.com"
             required={field.required}
           />
-        )
+        );
 
-      case 'number':
+      case "number":
         return (
           <input
             type="number"
             id={field.name}
             name={field.name}
-            value={formData[field.name] || ''}
+            value={formData[field.name] || ""}
             min={field.min}
             max={field.max}
-            onChange={(e) => handleInputChange(field.name, e.target.value)}
+            onChange={e => handleInputChange(field.name, e.target.value)}
             className={`${baseClasses} ${errorClasses}`}
             placeholder={field.placeholder}
             required={field.required}
           />
-        )
+        );
 
-      case 'select':
-        if (!isSelectField(field)) return null
+      case "select":
+        if (!isSelectField(field)) return null;
         return (
           <select
             id={field.name}
             name={field.name}
-            value={formData[field.name] || ''}
-            onChange={(e) => handleInputChange(field.name, e.target.value)}
+            value={formData[field.name] || ""}
+            onChange={e => handleInputChange(field.name, e.target.value)}
             className={`${baseClasses} ${errorClasses} cursor-pointer`}
             required={field.required}
           >
@@ -163,19 +164,19 @@ export default function DynamicForm({
               </option>
             ))}
           </select>
-        )
+        );
 
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   return (
     <div className={`max-w-md mx-auto ${className}`}>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {fields.map((field) => (
+        {fields.map(field => (
           <div key={field.name} className="space-y-2">
-            <label 
+            <label
               htmlFor={field.name}
               className="block text-sm font-medium text-foreground"
             >
@@ -184,9 +185,9 @@ export default function DynamicForm({
                 <span className="text-destructive ml-1">*</span>
               )}
             </label>
-            
+
             {renderField(field)}
-            
+
             {errors[field.name] && (
               <p className="text-sm text-destructive mt-1">
                 {errors[field.name]}
@@ -211,5 +212,5 @@ export default function DynamicForm({
         </button>
       </form>
     </div>
-  )
+  );
 }

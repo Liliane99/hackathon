@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 
 export function useToast() {
   const showSuccess = useCallback((message: string, description?: string) => {
@@ -40,7 +40,7 @@ export function useToast() {
     toast.dismiss(toastId);
   }, []);
 
-  const showCustom = useCallback((content: React.ReactNode, options?: any) => {
+  const showCustom = useCallback((content: ReactNode, options?: any) => {
     toast.custom(content, options);
   }, []);
 

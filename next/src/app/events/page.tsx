@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from 'react';
-import { Calendar, Users, MapPin, Clock, ChevronRight, Filter } from 'lucide-react';
+import React, { useState } from "react";
+import { Calendar, Users, Clock, ChevronRight } from "lucide-react";
 
 const EventsPage = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const events = {
     webinaires: [
@@ -15,7 +15,7 @@ const EventsPage = () => {
         participants: "J-21",
         description: "Choix du salon cible + début de veille concurrentielle",
         status: "upcoming",
-        location: undefined
+        location: undefined,
       },
       {
         id: 2,
@@ -25,7 +25,7 @@ const EventsPage = () => {
         participants: "TBD",
         description: "Validation de la participation au salon",
         status: "upcoming",
-        location: undefined
+        location: undefined,
       },
       {
         id: 3,
@@ -34,7 +34,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "Préparation concept stand + début production com",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 4,
@@ -43,7 +43,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "Booking hôtel, logistique, animations",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 5,
@@ -52,7 +52,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "Début campagne teaser participation",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 6,
@@ -61,7 +61,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "Salon professionnel (ex : AI Paris)",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 7,
@@ -70,7 +70,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "Début salon + relances leads",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 8,
@@ -79,7 +79,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 9,
@@ -88,7 +88,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 10,
@@ -97,7 +97,7 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 11,
@@ -106,8 +106,8 @@ const EventsPage = () => {
         time: "14:00",
         participants: "TBD",
         description: "Recadrage stratégie salon 2026-27",
-        status: "upcoming"
-      }
+        status: "upcoming",
+      },
     ],
     craft_talks: [
       {
@@ -117,7 +117,7 @@ const EventsPage = () => {
         time: "16:00",
         participants: "Équipe",
         description: "Préparation des activités et jeux interactifs",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 13,
@@ -126,7 +126,7 @@ const EventsPage = () => {
         time: "16:00",
         participants: "Équipe",
         description: "Finalisation des activités salon",
-        status: "upcoming"
+        status: "upcoming",
       },
       {
         id: 14,
@@ -135,8 +135,8 @@ const EventsPage = () => {
         time: "16:00",
         participants: "Équipe",
         description: "Préparation nouvelle saison",
-        status: "upcoming"
-      }
+        status: "upcoming",
+      },
     ],
     salons: [
       {
@@ -147,51 +147,54 @@ const EventsPage = () => {
         participants: "Équipe + visiteurs",
         description: "Participation au salon professionnel avec stand",
         location: "Paris",
-        status: "featured"
-      }
-    ]
+        status: "featured",
+      },
+    ],
   };
 
   const allEvents = [...events.webinaires, ...events.craft_talks, ...events.salons];
 
   const getFilteredEvents = () => {
-    switch(activeCategory) {
-      case 'webinaires':
+    switch (activeCategory) {
+      case "webinaires":
         return events.webinaires;
-      case 'craft_talks':
+      case "craft_talks":
         return events.craft_talks;
-      case 'salons':
+      case "salons":
         return events.salons;
       default:
         return allEvents;
     }
   };
 
-  const getCategoryIcon = (category) => {
-    switch(category) {
-      case 'webinaires':
-        return '🎥';
-      case 'craft_talks':
-        return '💬';
-      case 'salons':
-        return '🏢';
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case "webinaires":
+        return "🎥";
+      case "craft_talks":
+        return "💬";
+      case "salons":
+        return "🏢";
       default:
-        return '📅';
+        return "📅";
     }
   };
 
-  const getEventCategory = (eventId) => {
-    if (events.webinaires.find(e => e.id === eventId)) return 'webinaires';
-    if (events.craft_talks.find(e => e.id === eventId)) return 'craft_talks';
-    if (events.salons.find(e => e.id === eventId)) return 'salons';
-    return 'other';
+  const getEventCategory = (eventId: number) => {
+    if (events.webinaires.find(e => e.id === eventId)) return "webinaires";
+    if (events.craft_talks.find(e => e.id === eventId)) return "craft_talks";
+    if (events.salons.find(e => e.id === eventId)) return "salons";
+    return "other";
   };
 
   return (
-    <div className="min-h-screen" style={{
-      backgroundColor: 'var(--background)',
-      color: 'var(--foreground)'
-    }}>
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundColor: "var(--background)",
+        color: "var(--foreground)",
+      }}
+    >
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-indigo-900/20"></div>
@@ -208,29 +211,32 @@ const EventsPage = () => {
       </div>
 
       {/* Navigation Categories */}
-      <div className="sticky top-0 z-10 backdrop-blur-lg border-b" style={{
-        backgroundColor: 'var(--background)',
-        borderColor: 'var(--border)'
-      }}>
+      <div
+        className="sticky top-0 z-10 backdrop-blur-lg border-b"
+        style={{
+          backgroundColor: "var(--background)",
+          borderColor: "var(--border)",
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex flex-wrap gap-2 justify-center">
             {[
-              { key: 'all', label: 'Tous les événements', icon: '📅' },
-              { key: 'webinaires', label: 'Webinaires', icon: '🎥' },
-              { key: 'craft_talks', label: 'Tables Rondes', icon: '💬' },
-              { key: 'salons', label: 'Salons', icon: '🏢' }
-            ].map((category) => (
+              { key: "all", label: "Tous les événements", icon: "📅" },
+              { key: "webinaires", label: "Webinaires", icon: "🎥" },
+              { key: "craft_talks", label: "Tables Rondes", icon: "💬" },
+              { key: "salons", label: "Salons", icon: "🏢" },
+            ].map(category => (
               <button
                 key={category.key}
                 onClick={() => setActiveCategory(category.key)}
                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
                   activeCategory === category.key
-                    ? 'text-white shadow-lg transform scale-105'
-                    : 'hover:scale-105'
+                    ? "text-white shadow-lg transform scale-105"
+                    : "hover:scale-105"
                 }`}
                 style={{
-                  backgroundColor: activeCategory === category.key ? 'var(--primary)' : 'var(--card)',
-                  color: activeCategory === category.key ? 'var(--primary-foreground)' : 'var(--card-foreground)'
+                  backgroundColor: activeCategory === category.key ? "var(--primary)" : "var(--card)",
+                  color: activeCategory === category.key ? "var(--primary-foreground)" : "var(--card-foreground)",
                 }}
               >
                 <span>{category.icon}</span>
@@ -251,27 +257,28 @@ const EventsPage = () => {
                 key={event.id}
                 className="group relative overflow-hidden rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-2xl cursor-pointer"
                 style={{
-                  backgroundColor: 'var(--card)',
-                  borderColor: 'var(--border)'
+                  backgroundColor: "var(--card)",
+                  borderColor: "var(--border)",
                 }}
               >
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 z-10">
-                  <span 
+                  <span
                     className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1"
                     style={{
-                      backgroundColor: 'var(--primary)',
-                      color: 'var(--primary-foreground)'
+                      backgroundColor: "var(--primary)",
+                      color: "var(--primary-foreground)",
                     }}
                   >
                     {getCategoryIcon(category)}
-                    {category === 'webinaires' ? 'Webinaire' : 
-                     category === 'craft_talks' ? 'Table Ronde' : 'Salon'}
+                    {category === "webinaires"
+                      ? "Webinaire"
+                      : category === "craft_talks" ? "Table Ronde" : "Salon"}
                   </span>
                 </div>
 
                 {/* Status Badge */}
-                {event.status === 'featured' && (
+                {event.status === "featured" && (
                   <div className="absolute top-4 right-4 z-10">
                     <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-yellow-400 to-orange-400 text-black">
                       ⭐ Événement phare
@@ -313,15 +320,13 @@ const EventsPage = () => {
                     <span className="text-sm">{event.participants}</span>
                   </div>
 
-                
-
                   {/* Action Button */}
                   <div className="pt-4">
-                    <button 
+                    <button
                       className="w-full py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 group-hover:shadow-lg"
                       style={{
-                        backgroundColor: 'var(--primary)',
-                        color: 'var(--primary-foreground)'
+                        backgroundColor: "var(--primary)",
+                        color: "var(--primary-foreground)",
                       }}
                     >
                       En savoir plus
@@ -354,11 +359,11 @@ const EventsPage = () => {
           <p className="text-xl opacity-80 mb-8">
             Inscrivez-vous à notre newsletter pour ne manquer aucun événement
           </p>
-          <button 
+          <button
             className="px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 shadow-lg"
             style={{
-              backgroundColor: 'var(--primary)',
-              color: 'var(--primary-foreground)'
+              backgroundColor: "var(--primary)",
+              color: "var(--primary-foreground)",
             }}
           >
             S'inscrire à la newsletter
@@ -366,7 +371,8 @@ const EventsPage = () => {
         </div>
       </div>
 
-      <style jsx global>{`
+      <style jsx global>
+        {`
         :root {
           --radius: 0.625rem;
           --background: oklch(0.99 0.005 280);
@@ -408,7 +414,8 @@ const EventsPage = () => {
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };

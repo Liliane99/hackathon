@@ -6,6 +6,7 @@ import {
   mockProject,
   alternativeProfiles,
 } from "./mock-data";
+import { uuidv7 } from "uuidv7";
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -57,7 +58,7 @@ export async function searchServices(query: string): Promise<Service[]> {
   return allServices.filter(service =>
     service.name.toLowerCase().includes(searchTerm)
     || service.description.toLowerCase().includes(searchTerm)
-    || service.contractor.name.toLowerCase().includes(searchTerm),
+    || service.contractor?.name.toLowerCase().includes(searchTerm),
   );
 }
 
@@ -112,7 +113,7 @@ export async function createProject(projectData: Partial<Project>): Promise<Proj
   await delay(600);
 
   const newProject: Project = {
-    id: crypto.randomUUID(),
+    id: uuidv7(),
     title: projectData.title || "Nouveau projet",
     description: projectData.description || "",
     requirements: projectData.requirements || {

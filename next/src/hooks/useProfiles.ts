@@ -19,7 +19,7 @@ export function useProfiles(initialCategory?: SlotCategory) {
     setState(prev => ({ ...prev, isLoading: true, error: undefined }));
 
     try {
-      const profiles = category 
+      const profiles = category
         ? await getServicesByCategory(category)
         : await getAllServices();
 
@@ -29,7 +29,8 @@ export function useProfiles(initialCategory?: SlotCategory) {
         filteredProfiles: profiles,
         isLoading: false,
       }));
-    } catch (error) {
+    }
+    catch (error) {
       setState(prev => ({
         ...prev,
         isLoading: false,
@@ -39,14 +40,14 @@ export function useProfiles(initialCategory?: SlotCategory) {
   }, []);
 
   const applyFilters = useCallback((filters: ServiceFilters) => {
-    setState(prev => {
+    setState((prev) => {
       let filtered = [...prev.profiles];
       if (filters.type) {
         filtered = filtered.filter(service => service.type === filters.type);
       }
 
       if (filters.seniority) {
-        filtered = filtered.filter(service => {
+        filtered = filtered.filter((service) => {
           if (service.type === "human") {
             const dailyRate = service.pricePerDays;
             switch (filters.seniority) {
@@ -67,18 +68,18 @@ export function useProfiles(initialCategory?: SlotCategory) {
       }
 
       if (filters.minPrice || filters.maxPrice) {
-        filtered = filtered.filter(service => {
-          const price = service.type === "ai" ? service.price : service.pricePerDays * 20; 
-          return (!filters.minPrice || price >= filters.minPrice) &&
-                 (!filters.maxPrice || price <= filters.maxPrice);
+        filtered = filtered.filter((service) => {
+          const price = service.type === "ai" ? service.price : service.pricePerDays * 20;
+          return (!filters.minPrice || price >= filters.minPrice)
+            && (!filters.maxPrice || price <= filters.maxPrice);
         });
       }
 
       if (filters.technologies && filters.technologies.length > 0) {
-        filtered = filtered.filter(service => {
+        filtered = filtered.filter((service) => {
           const description = service.description.toLowerCase();
-          return filters.technologies!.some(tech => 
-            description.includes(tech.toLowerCase())
+          return filters.technologies!.some(tech =>
+            description.includes(tech.toLowerCase()),
           );
         });
       }
@@ -106,7 +107,8 @@ export function useProfiles(initialCategory?: SlotCategory) {
         filteredProfiles: results,
         isLoading: false,
       }));
-    } catch (error) {
+    }
+    catch (error) {
       setState(prev => ({
         ...prev,
         isLoading: false,
@@ -128,9 +130,9 @@ export function useProfiles(initialCategory?: SlotCategory) {
 
   const getAlternativeProfiles = useCallback((service: Service, limit = 5): Service[] => {
     return state.profiles
-      .filter(profile => 
-        profile.id !== service.id && 
-        profile.type === service.type
+      .filter(profile =>
+        profile.id !== service.id
+        && profile.type === service.type,
       )
       .slice(0, limit);
   }, [state.profiles]);

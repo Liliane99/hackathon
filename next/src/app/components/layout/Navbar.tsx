@@ -9,18 +9,18 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-			<Link href={"/"}>
-				<Image
-					src="/logos/logo.png"
-					alt="logo"
-					width={150}
-					height={50}
-				/>
-			</Link>
+            <Link href="/">
+              <Image
+                src="/logos/logo.png"
+                alt="logo"
+                width={150}
+                height={50}
+              />
+            </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-			<Link href="/events" className="text-gray-700 hover:text-primary transition-colors">
+            <Link href="/events" className="text-gray-700 hover:text-primary transition-colors">
               Evenements
             </Link>
             <Link href="/services" className="text-gray-700 hover:text-primary transition-colors">

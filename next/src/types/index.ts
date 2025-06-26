@@ -1,17 +1,21 @@
+import { CompanySize, Project, ProjectPriority, ProjectStatus } from "@/schemas/project";
+import { Service } from "@/schemas/service";
+import { SeniorityLevel, SlotCategory, Team, TeamSlot } from "@/schemas/team";
+
 export type { Service } from "@/schemas/service";
-export type { 
-  Team, 
-  TeamSlot, 
-  SlotCategory, 
-  TeamStatus, 
-  SeniorityLevel 
+export type {
+  Team,
+  TeamSlot,
+  SlotCategory,
+  TeamStatus,
+  SeniorityLevel,
 } from "@/schemas/team";
-export type { 
-  Project, 
-  ProjectRequirement, 
-  ProjectStatus, 
-  ProjectPriority, 
-  CompanySize 
+export type {
+  Project,
+  ProjectRequirement,
+  ProjectStatus,
+  ProjectPriority,
+  CompanySize,
 } from "@/schemas/project";
 
 export interface TeamMember {
@@ -36,7 +40,7 @@ export interface ProjectOverview {
   team?: Team;
   stats?: TeamStats;
   progress: {
-    teamBuildingProgress: number; 
+    teamBuildingProgress: number;
     overallProgress: number;
   };
 }
@@ -155,7 +159,7 @@ export interface TeamUpdateEvent {
 
 export const SLOT_CATEGORIES = [
   "frontend",
-  "backend", 
+  "backend",
   "fullstack",
   "devops",
   "rh",
@@ -163,25 +167,25 @@ export const SLOT_CATEGORIES = [
   "design",
   "qa",
   "marketing",
-  "data"
+  "data",
 ] as const;
 
 export const SENIORITY_LEVELS = [
   "junior",
-  "mid", 
+  "mid",
   "senior",
-  "lead"
+  "lead",
 ] as const;
 
 export const PROJECT_STATUSES = [
   "draft",
   "requirements_analysis",
-  "team_building", 
+  "team_building",
   "team_ready",
   "in_progress",
   "on_hold",
   "completed",
-  "cancelled"
+  "cancelled",
 ] as const;
 
 export const SERVICE_TYPES = ["human", "ai"] as const;
@@ -212,7 +216,7 @@ export class TeamBuilderError extends Error {
   constructor(
     message: string,
     public code: string,
-    public context?: any
+    public context?: any,
   ) {
     super(message);
     this.name = "TeamBuilderError";

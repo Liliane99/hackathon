@@ -60,9 +60,9 @@ export function useProfileOverlay() {
   }>();
 
   const openProfile = useCallback((
-    service: any, 
-    slot?: any, 
-    actions?: { onAccept?: (service: any) => void; onReplace?: (service: any) => void }
+    service: any,
+    slot?: any,
+    actions?: { onAccept?: (service: any) => void; onReplace?: (service: any) => void },
   ) => {
     overlay.openOverlay({
       service,

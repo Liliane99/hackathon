@@ -27,13 +27,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/app/components/ui/form";
-import JsonEditor from "@/app/components/service/jsonEditor";
 import { z } from "zod";
 import { FormField as JsonFormField } from "@/schemas/formBuilder";
 import { ServiceRepository } from "@/mocks/service";
 import { uuidv7 } from "uuidv7";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import JsonEditor from "@/app/components/service/JsonEditor";
 
 export default function ServiceIntegrationPage() {
   const [debugMessage, setDebugMessage] = useState<string>("");

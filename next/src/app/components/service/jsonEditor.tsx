@@ -10,21 +10,9 @@ import { formSchema, FormField } from "../../../schemas/formBuilder";
 import {
   Card, CardContent, CardDescription, CardHeader, CardTitle,
 } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
 import { Alert, AlertDescription } from "@/app/components/ui/alert";
 import { Badge } from "@/app/components/ui/badge";
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/app/components/ui/select";
-import {
-  Form,
-  FormControl,
-  FormField as ShadcnFormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/app/components/ui/form";
 
 import { AlertTriangle, RotateCcw, CheckCircle } from "lucide-react";
 import DynamicForm from "@/app/components/service/DynamicForm";
@@ -221,7 +209,6 @@ export default function JsonEditor({ onSendData }: Props) {
         </CardContent>
       </Card>
 
-      
       <Card className="w-1/2 bg-[var(--card)] text-[var(--card-foreground)] border-[var(--border)]">
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -254,12 +241,12 @@ export default function JsonEditor({ onSendData }: Props) {
           {parsedFields.length > 0
             ? (
                 <DynamicForm
-					fields={parsedFields}
-					onSubmit={(data) => {
-						console.log("Form data submitted:", data);
-					}}
-					submitLabel={"Envoyer"}
-				/>
+                  fields={parsedFields}
+                  onSubmit={(data) => {
+                    console.log("Form data submitted:", data);
+                  }}
+                  submitLabel="Envoyer"
+                />
               )
             : (
                 <div className="text-center py-8 text-[var(--muted-foreground)]">

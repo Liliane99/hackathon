@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Team, TeamSlot, Service, TeamBuilderState } from "@/types";
 import { mockTeam } from "@/lib/mock-data";
 import { calculateTeamCosts } from "@/lib/api";
@@ -15,10 +15,10 @@ export function useTeamBuilder(initialTeam?: Team) {
   });
 
   const assignServiceToSlot = useCallback((slotId: string, service: Service) => {
-    setState(prev => {
+    setState((prev) => {
       if (!prev.currentTeam) return prev;
 
-      const updatedSlots = prev.currentTeam.slots.map(slot => {
+      const updatedSlots = prev.currentTeam.slots.map((slot) => {
         if (slot.id === slotId) {
           return {
             ...slot,
@@ -45,10 +45,10 @@ export function useTeamBuilder(initialTeam?: Team) {
   }, []);
 
   const removeServiceFromSlot = useCallback((slotId: string) => {
-    setState(prev => {
+    setState((prev) => {
       if (!prev.currentTeam) return prev;
 
-      const updatedSlots = prev.currentTeam.slots.map(slot => {
+      const updatedSlots = prev.currentTeam.slots.map((slot) => {
         if (slot.id === slotId) {
           return {
             ...slot,
@@ -89,10 +89,10 @@ export function useTeamBuilder(initialTeam?: Team) {
 
   const isTeamComplete = useCallback(() => {
     if (!state.currentTeam) return false;
-    
+
     const requiredSlots = state.currentTeam.slots.filter(slot => slot.isRequired);
     const assignedRequiredSlots = requiredSlots.filter(slot => slot.isAssigned);
-    
+
     return assignedRequiredSlots.length === requiredSlots.length;
   }, [state.currentTeam]);
 
@@ -102,7 +102,7 @@ export function useTeamBuilder(initialTeam?: Team) {
     const assignedSlots = state.currentTeam.slots.filter(slot => slot.isAssigned);
     const humanServices = assignedSlots.filter(slot => slot.assignedService?.type === "human");
     const aiServices = assignedSlots.filter(slot => slot.assignedService?.type === "ai");
-    
+
     const costs = calculateTeamCosts(state.currentTeam);
 
     return {
@@ -153,10 +153,10 @@ export function useTeamBuilder(initialTeam?: Team) {
 
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setState(prev => {
+
+      setState((prev) => {
         if (!prev.currentTeam) return prev;
-        
+
         return {
           ...prev,
           currentTeam: {
@@ -169,7 +169,8 @@ export function useTeamBuilder(initialTeam?: Team) {
       });
 
       return true;
-    } catch (error) {
+    }
+    catch {
       setState(prev => ({
         ...prev,
         isLoading: false,
