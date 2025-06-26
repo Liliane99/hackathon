@@ -1,14 +1,17 @@
 'use client'
 
-import React from 'react'
-import { useState } from 'react'
-import { FormField } from '../../schemas/formBuilder'
+import React, { useState } from 'react'
+import { FormField } from '../../../schemas/formBuilder'
 
 interface DynamicFormProps {
   fields: FormField[]
   onSubmit: (data: Record<string, any>) => void
   submitLabel?: string
   className?: string
+}
+
+function isSelectField(field: FormField): field is Extract<FormField, { type: 'select' }> {
+  return field.type === 'select'
 }
 
 export default function DynamicForm({ 
@@ -22,7 +25,6 @@ export default function DynamicForm({
 
   const handleInputChange = (name: string, value: any) => {
     setFormData(prev => ({ ...prev, [name]: value }))
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }))
     }
@@ -34,13 +36,11 @@ export default function DynamicForm({
     fields.forEach(field => {
       const value = formData[field.name]
       
-      // Required field validation
       if (field.required && (!value || value === '')) {
         newErrors[field.name] = `${field.label} est requis`
         return
       }
 
-      // Type-specific validation
       if (value && field.type === 'email') {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         if (!emailRegex.test(value)) {
@@ -69,7 +69,6 @@ export default function DynamicForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    
     if (validateForm()) {
       onSubmit(formData)
     }
@@ -132,6 +131,7 @@ export default function DynamicForm({
         )
 
       case 'select':
+        if (!isSelectField(field)) return null
         return (
           <select
             id={field.name}
@@ -158,7 +158,7 @@ export default function DynamicForm({
   return (
     <div className={`max-w-md mx-auto ${className}`}>
       <form onSubmit={handleSubmit} className="space-y-6">
-        {fields.map((field, index) => (
+        {fields.map((field) => (
           <div key={field.name} className="space-y-2">
             <label 
               htmlFor={field.name}
