@@ -1,7 +1,7 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent, CardFooter, CardHeader } from "@/app/components/ui/card";
+import { Button } from "@/app/components/ui/button";
+import { Badge } from "@/app/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import { Service } from "@/schemas/service";
 

@@ -1,7 +1,7 @@
-import { ProfileList } from '@/components/profiles/ProfileList';
-import { ProfileFilters } from '@/components/profiles/ProfileFilters';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { ProfileList } from '@/app/components/profiles/ProfileList';
+import { ProfileFilters } from '@/app/components/profiles/ProfileFilters';
+import { Badge } from '@/app/components/ui/badge';
+import { Button } from '@/app/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { CATEGORIES } from '@/lib/constants';

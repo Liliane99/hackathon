@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { Badge } from "@/app/components/ui/badge";
 import { CATEGORIES, SENIORITY_LEVELS, SERVICE_TYPES } from "@/lib/constants";
 
 interface ProfileFiltersProps {

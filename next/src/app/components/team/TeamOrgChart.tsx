@@ -5,9 +5,9 @@ import { useState } from "react";
 import { ProfileOverlay } from "./ProfileOverlay";
 import { Service } from "@/schemas/service";
 import { TeamSlot } from "@/schemas/team";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
 import { Bot, User, Crown, Code, Database, Users, Palette, Bug, CheckCircle, ArrowRight, Search, Sparkles } from "lucide-react";
 
 const getCategoryIcon = (category: string) => {

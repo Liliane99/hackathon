@@ -1,4 +1,4 @@
-import { TeamOrgChart } from '@/components/team/TeamOrgChart';
+import { TeamOrgChart } from '@/app/components/team/TeamOrgChart';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

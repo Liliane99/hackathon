@@ -1,6 +1,6 @@
 import { Service } from "@/schemas/service";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/app/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
 import { Bot, User, Mail, Phone } from "lucide-react";
 
 interface ProfileDetailsProps {

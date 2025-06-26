@@ -1,5 +1,5 @@
 import { TeamSlot as TeamSlotType } from "@/schemas/team";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/app/components/ui/badge";
 
 interface TeamSlotProps {
   slot: TeamSlotType;

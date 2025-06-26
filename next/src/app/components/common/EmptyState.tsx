@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import { Users, Search } from "lucide-react";
 
 interface EmptyStateProps {
