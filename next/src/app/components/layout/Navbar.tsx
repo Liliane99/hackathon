@@ -20,8 +20,8 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/team" className="text-gray-700 hover:text-primary transition-colors">
-              Équipes
+			<Link href="/events" className="text-gray-700 hover:text-primary transition-colors">
+              Evenements
             </Link>
             <Link href="/services" className="text-gray-700 hover:text-primary transition-colors">
               Tous les services
