@@ -33,7 +33,7 @@ import { ServiceRepository } from "@/mocks/service";
 import { uuidv7 } from "uuidv7";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import JsonEditor from "@/app/components/service/JsonEditor";
+import JsonEditor from "@/app/components/service/jsonEditor";
 
 export default function ServiceIntegrationPage() {
   const [debugMessage, setDebugMessage] = useState<string>("");
