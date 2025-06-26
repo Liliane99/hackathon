@@ -76,8 +76,8 @@ export default function ServiceFormPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">{service.name}</h1>
-      <p className="mb-6 text-muted-foreground">{service.description}</p>
+      <h1 className="text-2xl font-bold mb-4 text-center">{service.name}</h1>
+      <p className="mb-6 text-muted-foreground text-center">{service.description}</p>
 
       {service.type === "ai" && (
         <DynamicForm
