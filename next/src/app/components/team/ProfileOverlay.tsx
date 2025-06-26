@@ -6,15 +6,14 @@ import { Badge } from "@/app/components/ui/badge";
 import { Separator } from "@/app/components/ui/separator";
 import { Service } from "@/schemas/service";
 import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
-import { Bot, User, Mail, Phone, Globe, DollarSign } from "lucide-react";
+import { Bot, User, Mail, Phone, DollarSign } from "lucide-react";
 import { toast } from "sonner";
-import Link from "next/link";
 
 interface ProfileOverlayProps {
   service: Service | null;
   open: boolean;
   onClose: () => void;
-  slotCategory?: string; 
+  slotCategory?: string;
 }
 
 export function ProfileOverlay({ service, open, onClose, slotCategory }: ProfileOverlayProps) {
@@ -31,7 +30,7 @@ export function ProfileOverlay({ service, open, onClose, slotCategory }: Profile
       return slotCategory;
     }
     const description = service.description.toLowerCase();
-    
+
     if (description.includes("react") || description.includes("vue") || description.includes("frontend")) {
       return "frontend";
     }
@@ -57,11 +56,13 @@ export function ProfileOverlay({ service, open, onClose, slotCategory }: Profile
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
               <AvatarFallback className="bg-primary/10 text-primary text-lg">
-                {isAI ? (
-                  <Bot className="h-8 w-8" />
-                ) : (
-                  <User className="h-8 w-8" />
-                )}
+                {isAI
+                  ? (
+                      <Bot className="h-8 w-8" />
+                    )
+                  : (
+                      <User className="h-8 w-8" />
+                    )}
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
@@ -85,11 +86,11 @@ export function ProfileOverlay({ service, open, onClose, slotCategory }: Profile
             <div className="space-y-2">
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="h-4 w-4 text-gray-400" />
-                <span>{service.contractor.email}</span>
+                <span>{service.contractor?.email}</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4 text-gray-400" />
-                <span>{service.contractor.phoneNumber}</span>
+                <span>{service.contractor?.phoneNumber}</span>
               </div>
             </div>
           </div>
@@ -100,10 +101,9 @@ export function ProfileOverlay({ service, open, onClose, slotCategory }: Profile
             <div className="flex items-center gap-3">
               <DollarSign className="h-4 w-4 text-gray-400" />
               <span className="text-lg font-semibold text-primary">
-                {isAI 
+                {isAI
                   ? `${service.price}€/mois`
-                  : `${service.pricePerDays}€/jour`
-                }
+                  : `${service.pricePerDays}€/jour`}
               </span>
             </div>
           </div>
@@ -117,26 +117,6 @@ export function ProfileOverlay({ service, open, onClose, slotCategory }: Profile
                     <span className="font-medium text-gray-700">Modèle :</span>
                     <span className="ml-2 text-gray-600">{service.agentAi.modelName}</span>
                   </div>
-                  <div>
-                    <span className="font-medium text-gray-700">Paramètres d'entrée :</span>
-                    <div className="mt-1 flex flex-wrap gap-1">
-                      {service.agentAi.inputParameters.map((param) => (
-                        <Badge key={param} variant="outline" className="text-xs">
-                          {param}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <span className="font-medium text-gray-700">Résultats :</span>
-                    <div className="mt-1 flex flex-wrap gap-1">
-                      {service.agentAi.outputParameters.map((param) => (
-                        <Badge key={param} variant="outline" className="text-xs">
-                          {param}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               </div>
             </>
@@ -144,18 +124,18 @@ export function ProfileOverlay({ service, open, onClose, slotCategory }: Profile
 
           <Separator />
           <div className="space-y-3">
-            <Button 
-              onClick={handleAccept} 
-              className="w-full" 
+            <Button
+              onClick={handleAccept}
+              className="w-full"
               size="lg"
             >
               Accepter ce profil
             </Button>
-            <Link href={`/profiles/${getProfileCategory()}`} className="block">
-              <Button variant="outline" className="w-full" size="lg">
-                Voir d'autres profils {getProfileCategory()}
-              </Button>
-            </Link>
+            <Button variant="outline" className="w-full" size="lg">
+              Voir d'autres profils
+              {" "}
+              {getProfileCategory()}
+            </Button>
           </div>
         </div>
       </SheetContent>

@@ -1,10 +1,10 @@
 import { Service, Team, Project, SlotCategory } from "@/types";
-import { 
-  humanServices, 
-  aiServices, 
-  mockTeam, 
-  mockProject, 
-  alternativeProfiles 
+import {
+  humanServices,
+  aiServices,
+  mockTeam,
+  mockProject,
+  alternativeProfiles,
 } from "./mock-data";
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -17,8 +17,8 @@ export async function getAllServices(): Promise<Service[]> {
 export async function getServicesByCategory(category: SlotCategory): Promise<Service[]> {
   await delay(300);
   const allServices = [...humanServices, ...aiServices];
-  
-  const filtered = allServices.filter(service => {
+
+  const filtered = allServices.filter((service) => {
     const description = service.description.toLowerCase();
     switch (category) {
       case "frontend":
@@ -52,12 +52,12 @@ export async function getServiceById(id: string): Promise<Service | null> {
 export async function searchServices(query: string): Promise<Service[]> {
   await delay(400);
   const allServices = [...humanServices, ...aiServices];
-  
+
   const searchTerm = query.toLowerCase();
-  return allServices.filter(service => 
-    service.name.toLowerCase().includes(searchTerm) ||
-    service.description.toLowerCase().includes(searchTerm) ||
-    service.contractor.name.toLowerCase().includes(searchTerm)
+  return allServices.filter(service =>
+    service.name.toLowerCase().includes(searchTerm)
+    || service.description.toLowerCase().includes(searchTerm)
+    || service.contractor.name.toLowerCase().includes(searchTerm),
   );
 }
 
@@ -75,12 +75,11 @@ export async function updateTeam(team: Team): Promise<Team> {
 }
 
 export async function assignServiceToSlot(
-  teamId: string, 
-  slotId: string, 
-  serviceId: string
+  slotId: string,
+  serviceId: string,
 ): Promise<Team> {
   await delay(400);
-  
+
   const service = await getServiceById(serviceId);
   if (!service) {
     throw new Error("Service not found");
@@ -88,7 +87,7 @@ export async function assignServiceToSlot(
 
   const updatedTeam = {
     ...mockTeam,
-    slots: mockTeam.slots.map(slot => {
+    slots: mockTeam.slots.map((slot) => {
       if (slot.id === slotId) {
         return {
           ...slot,
@@ -111,7 +110,7 @@ export async function getProjectById(id: string): Promise<Project | null> {
 
 export async function createProject(projectData: Partial<Project>): Promise<Project> {
   await delay(600);
-  
+
   const newProject: Project = {
     id: crypto.randomUUID(),
     title: projectData.title || "Nouveau projet",
@@ -135,14 +134,15 @@ export function calculateTeamCosts(team: Team): { monthly: number; daily: number
   let monthly = 0;
   let daily = 0;
 
-  team.slots.forEach(slot => {
+  team.slots.forEach((slot) => {
     if (slot.isAssigned && slot.assignedService) {
       const service = slot.assignedService;
       if (service.type === "ai") {
         monthly += service.price;
-        daily += service.price / 30; 
-      } else {
-        const monthlyEstimate = service.pricePerDays * 20; 
+        daily += service.price / 30;
+      }
+      else {
+        const monthlyEstimate = service.pricePerDays * 20;
         monthly += monthlyEstimate;
         daily += service.pricePerDays;
       }
@@ -156,7 +156,7 @@ export function calculateTeamCosts(team: Team): { monthly: number; daily: number
 }
 
 export function getMatchingScore(service: Service, slot: Team["slots"][0]): number {
-  let score = 0.5; 
+  let score = 0.5;
   if (slot.category === "rh" && service.type === "ai") {
     score += 0.2;
   }
@@ -166,11 +166,11 @@ export function getMatchingScore(service: Service, slot: Team["slots"][0]): numb
 
   if (slot.requirements) {
     const description = service.description.toLowerCase();
-    const matchingReqs = slot.requirements.filter(req => 
-      description.includes(req.toLowerCase())
+    const matchingReqs = slot.requirements.filter(req =>
+      description.includes(req.toLowerCase()),
     );
     score += (matchingReqs.length / slot.requirements.length) * 0.3;
   }
 
-  return Math.min(score, 1); 
+  return Math.min(score, 1);
 }

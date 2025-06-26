@@ -33,11 +33,13 @@ import { FormField as JsonFormField } from "@/schemas/formBuilder";
 import { ServiceRepository } from "@/mocks/service";
 import { uuidv7 } from "uuidv7";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-export default function HomePage() {
+export default function ServiceIntegrationPage() {
   const [debugMessage, setDebugMessage] = useState<string>("");
   const [serviceType, setServiceType] = useState<Service["type"]>("ai");
   const [jsonData, setJsonData] = useState<JsonFormField[]>([]);
+  const router = useRouter();
 
   const handleJsonEditorData = (data: JsonFormField[]) => {
     setJsonData(data);
@@ -71,6 +73,7 @@ export default function HomePage() {
       ...values,
     });
     toast("Service humain créé avec succès !");
+    router.push("/services");
   }
 
   function onSubmitIaService(values: z.infer<typeof createServiceIaSchema>) {
@@ -86,6 +89,7 @@ export default function HomePage() {
       },
     });
     toast("Service IA créé avec succès !");
+    router.push("/services");
   }
 
   function onError(errors: Record<string, unknown>) {

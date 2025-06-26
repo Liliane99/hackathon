@@ -42,11 +42,11 @@ export function ProfileDetails({ service }: ProfileDetailsProps) {
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <Mail className="h-4 w-4 text-gray-400" />
-            <span>{service.contractor.email}</span>
+            <span>{service.contractor?.email}</span>
           </div>
           <div className="flex items-center gap-3">
             <Phone className="h-4 w-4 text-gray-400" />
-            <span>{service.contractor.phoneNumber}</span>
+            <span>{service.contractor?.phoneNumber}</span>
           </div>
         </div>
       </div>
@@ -58,16 +58,6 @@ export function ProfileDetails({ service }: ProfileDetailsProps) {
             <div>
               <span className="text-sm font-medium text-gray-700">Modèle :</span>
               <span className="ml-2 text-gray-600">{service.agentAi.modelName}</span>
-            </div>
-            <div>
-              <span className="text-sm font-medium text-gray-700">Paramètres :</span>
-              <div className="mt-1 flex flex-wrap gap-1">
-                {service.agentAi.inputParameters.map(param => (
-                  <Badge key={param} variant="outline" className="text-xs">
-                    {param}
-                  </Badge>
-                ))}
-              </div>
             </div>
           </div>
         </div>

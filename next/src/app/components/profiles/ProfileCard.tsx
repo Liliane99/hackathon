@@ -57,7 +57,7 @@ export function ProfileCard({ service, onSelect }: ProfileCardProps) {
           className="w-full"
           onClick={() => onSelect?.(service)}
         >
-          Voir le profil
+          Voir le service
         </Button>
       </CardFooter>
     </Card>

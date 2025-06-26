@@ -7,20 +7,10 @@ import Link from "next/link";
 import { CATEGORIES } from "@/lib/constants";
 import { SlotCategory } from "@/types";
 import { getServicesByCategory } from "@/lib/api";
-import { Metadata } from "next";
 
 interface PageProps {
   params: {
     category: string;
-  };
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const categoryName = CATEGORIES[params.category as SlotCategory] || "Tous les profils";
-
-  return {
-    title: `${categoryName} - TeamBuilder`,
-    description: `Découvrez tous les talents ${categoryName.toLowerCase()} disponibles`,
   };
 }
 
@@ -67,7 +57,6 @@ export default async function CategoryProfilesPage({ params }: PageProps) {
         <div className="lg:col-span-3">
           <ProfileList
             profiles={profiles}
-            title={`${profiles.length} profil(s) trouvé(s)`}
           />
         </div>
       </div>

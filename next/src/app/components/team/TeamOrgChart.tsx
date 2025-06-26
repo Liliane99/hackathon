@@ -1,7 +1,7 @@
 "use client";
 
 import { mockTeam } from "@/lib/mock-data";
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { ProfileOverlay } from "./ProfileOverlay";
 import { Service } from "@/schemas/service";
 import { TeamSlot } from "@/schemas/team";
@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { Bot, User, Crown, Code, Database, Users, Palette, Bug, CheckCircle, ArrowRight, Search, Sparkles } from "lucide-react";
+import { toast } from "sonner";
 
 const getCategoryIcon = (category: string) => {
   switch (category) {
@@ -65,7 +66,8 @@ function OrgNode({ slot, position, level, onServiceClick }: OrgNodeProps) {
       relative group
       ${position === "top" ? "mx-auto" : ""}
       ${level > 0 ? "mt-12" : ""}
-    `}>
+    `}
+    >
       {level > 0 && (
         <>
           <div className="absolute -top-12 left-1/2 w-0.5 h-12 bg-gray-300 transform -translate-x-px"></div>
@@ -77,24 +79,29 @@ function OrgNode({ slot, position, level, onServiceClick }: OrgNodeProps) {
         relative w-80 bg-white rounded-xl shadow-sm border border-gray-200 ${accentColor} border-l-4
         transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1
         ${!isAssigned ? "border-dashed border-gray-300 bg-gray-50/50" : ""}
-      `}>
+      `}
+      >
         <div className="p-6">
           <div className="flex items-start gap-4 mb-4">
             <div className="relative">
               <Avatar className="h-14 w-14 border-2 border-gray-100">
                 <AvatarFallback className="bg-gray-100 text-gray-600 font-semibold">
-                  {isAssigned ? (
-                    service.type === "ai" ? (
-                      <Bot className="h-6 w-6" />
-                    ) : (
-                      <User className="h-6 w-6" />
-                    )
-                  ) : (
-                    <Icon className="h-6 w-6" />
-                  )}
+                  {isAssigned
+                    ? (
+                        service.type === "ai"
+                          ? (
+                              <Bot className="h-6 w-6" />
+                            )
+                          : (
+                              <User className="h-6 w-6" />
+                            )
+                      )
+                    : (
+                        <Icon className="h-6 w-6" />
+                      )}
                 </AvatarFallback>
               </Avatar>
-              
+
               {isAssigned && (
                 <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
                   <CheckCircle className="h-3 w-3 text-white" />
@@ -114,7 +121,7 @@ function OrgNode({ slot, position, level, onServiceClick }: OrgNodeProps) {
                   </Badge>
                 )}
               </div>
-              
+
               {slot.seniority && (
                 <span className="text-xs text-gray-500 font-medium">
                   {slot.seniority.charAt(0).toUpperCase() + slot.seniority.slice(1)}
@@ -127,37 +134,38 @@ function OrgNode({ slot, position, level, onServiceClick }: OrgNodeProps) {
             {slot.role}
           </h3>
 
-          {isAssigned ? (
-            <div className="space-y-3">
-              <div>
-                <p className="font-medium text-gray-900 mb-1">
-                  {service.name}
-                </p>
-                <p className="text-sm text-gray-600 line-clamp-2">
-                  {service.description}
-                </p>
-              </div>
-              
-              <div className="flex justify-between items-center pt-2 border-t border-gray-100">
-                <span className="text-sm font-semibold text-gray-900">
-                  {service.type === "ai" 
-                    ? `${service.price}€/mois`
-                    : `${service.pricePerDays}€/jour`
-                  }
-                </span>
-                <button
-                  onClick={() => onServiceClick(service, slot.category)}
-                  className="px-4 py-2 border-2 border-purple-500 text-purple-600 rounded-lg text-sm font-medium
+          {isAssigned
+            ? (
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-medium text-gray-900 mb-1">
+                      {service.name}
+                    </p>
+                    <p className="text-sm text-gray-600 line-clamp-2">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                    <span className="text-sm font-semibold text-gray-900">
+                      {service.type === "ai"
+                        ? `${service.price}€/mois`
+                        : `${service.pricePerDays}€/jour`}
+                    </span>
+                    <button
+                      onClick={() => onServiceClick(service, slot.category)}
+                      className="px-4 py-2 border-2 border-purple-500 text-purple-600 rounded-lg text-sm font-medium
                            hover:bg-purple-500 hover:text-white transition-all duration-200
                            transform hover:scale-105"
-                >
-                  Détails
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-4">
-              {/* <div className="text-gray-400 mb-3">
+                    >
+                      Détails
+                    </button>
+                  </div>
+                </div>
+              )
+            : (
+                <div className="text-center py-4">
+                  {/* <div className="text-gray-400 mb-3">
                 <Icon className="h-10 w-10 mx-auto mb-2 opacity-40" />
                 <p className="text-sm font-medium text-gray-500">Position ouverte</p>
               </div>
@@ -170,8 +178,8 @@ function OrgNode({ slot, position, level, onServiceClick }: OrgNodeProps) {
                                hover:border-purple-500 hover:text-purple-600 transition-all duration-200">
                 Recruter
               </button> */}
-            </div>
-          )}
+                </div>
+              )}
         </div>
       </div>
     </div>
@@ -197,23 +205,23 @@ export function TeamOrgChart() {
   };
 
   const handleValidateTeam = () => {
-    alert("Équipe validée ! 🎉");
+    toast("Équipe validée ! 🎉");
   };
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      alert(`Recherche: ${searchQuery}`);
+      toast(`Recherche: ${searchQuery}`);
     }
   };
 
   const allSlots = mockTeam.slots;
   const managementSlots = allSlots.filter(slot => slot.category === "management");
-  const coreSlots = allSlots.filter(slot => 
-    ["frontend", "backend"].includes(slot.category)
+  const coreSlots = allSlots.filter(slot =>
+    ["frontend", "backend"].includes(slot.category),
   );
-  const supportSlots = allSlots.filter(slot => 
-    ["rh", "design", "qa"].includes(slot.category)
+  const supportSlots = allSlots.filter(slot =>
+    ["rh", "design", "qa"].includes(slot.category),
   );
 
   const isTeamComplete = allSlots.filter(s => s.isRequired).every(s => s.isAssigned);
@@ -236,7 +244,7 @@ export function TeamOrgChart() {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Décrivez votre projet..."
                 className="w-full pl-12 pr-16 py-3 text-base border-2 border-gray-200 rounded-full
                          focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none
@@ -254,33 +262,10 @@ export function TeamOrgChart() {
               </button>
             </div>
           </form>
-
-          {/* <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <span className="text-sm text-gray-500">Exemples populaires :</span>
-            {[
-              "Site e-commerce React",
-              "App mobile Flutter", 
-              "Plateforme SaaS",
-              "Marketplace Laravel"
-            ].map((suggestion) => (
-              <button
-                key={suggestion}
-                onClick={() => setSearchQuery(suggestion)}
-                className="px-3 py-1 text-sm bg-gray-100 hover:bg-gray-200 rounded-full
-                         text-gray-700 transition-colors duration-200"
-              >
-                {suggestion}
-              </button>
-            ))}
-          </div> */}
         </div>
       </div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-8 text-center">
-          {/* <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-lg mb-4">
-            <CheckCircle className="h-4 w-4" />
-            <span className="text-sm font-medium">Équipe générée avec succès</span>
-          </div> */}
           <h2 className="text-2xl font-bold text-gray-900">
             Équipe recommandée pour votre projet
           </h2>
@@ -291,9 +276,9 @@ export function TeamOrgChart() {
               <Crown className="h-5 w-5 text-purple-600" />
               <span className="font-semibold text-gray-900">Direction</span>
             </div>
-            
+
             <div className="flex justify-center">
-              {managementSlots.map((slot) => (
+              {managementSlots.map(slot => (
                 <OrgNode
                   key={slot.id}
                   slot={slot}
@@ -320,12 +305,12 @@ export function TeamOrgChart() {
                 <Code className="h-5 w-5 text-blue-600" />
                 <span className="font-semibold text-gray-900">Développement</span>
               </div>
-              
+
               <div className="flex justify-center gap-24">
                 {coreSlots.map((slot, index) => (
                   <div key={slot.id} className="relative">
                     <div className="absolute -top-20 left-1/2 w-0.5 h-12 bg-gray-300 transform -translate-x-px"></div>
-                    
+
                     <OrgNode
                       slot={slot}
                       position={index === 0 ? "left" : "right"}
@@ -343,9 +328,9 @@ export function TeamOrgChart() {
                 <Users className="h-5 w-5 text-rose-600" />
                 <span className="font-semibold text-gray-900">Support & Spécialistes</span>
               </div>
-              
+
               <div className="flex justify-center gap-16 flex-wrap">
-                {supportSlots.map((slot) => (
+                {supportSlots.map(slot => (
                   <OrgNode
                     key={slot.id}
                     slot={slot}
@@ -387,19 +372,21 @@ export function TeamOrgChart() {
                 disabled={!isTeamComplete}
                 size="lg"
                 className={`px-8 py-4 font-semibold transition-all duration-300 ${
-                  isTeamComplete 
-                    ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105' 
-                    : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  isTeamComplete
+                    ? "bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105"
+                    : "bg-gray-200 text-gray-500 cursor-not-allowed"
                 }`}
               >
-                {isTeamComplete ? (
-                  <>
-                    Valider l'équipe
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </>
-                ) : (
-                  "Compléter l'équipe"
-                )}
+                {isTeamComplete
+                  ? (
+                      <>
+                        Valider l'équipe
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </>
+                    )
+                  : (
+                      "Compléter l'équipe"
+                    )}
               </Button>
             </div>
           </div>
