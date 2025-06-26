@@ -99,7 +99,7 @@ export default function Pricing() {
 	const [selectedPlan, setSelectedPlan] = useState(null);
 
 	return (
-		<section className="py-20 bg-white">
+		<section className="py-20">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="text-center mb-16">
 					<h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -115,7 +115,7 @@ export default function Pricing() {
 						<Card
 							key={plan.id}
 							onClick={() => setSelectedPlan(plan.id)}
-							className={`relative flex flex-col justify-between h-full border-2 transition-all duration-300 cursor-pointer ${
+							className={`relative flex flex-col bg-white justify-between h-full border-2 transition-all duration-300 cursor-pointer ${
 								selectedPlan === plan.id
 									? "border-primary shadow-xl ring-2 ring-primary/40"
 									: "border-gray-200 hover:border-primary/30 hover:shadow-lg"
