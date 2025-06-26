@@ -4,6 +4,7 @@ import { Badge } from "@/app/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
 import { Bot, User } from "lucide-react";
 import { Service } from "@/schemas/service";
+import Link from "next/link"; 
 
 interface ProfileCardProps {
   service: Service;
@@ -19,13 +20,7 @@ export function ProfileCard({ service, onSelect }: ProfileCardProps) {
         <div className="flex items-center gap-3">
           <Avatar>
             <AvatarFallback className="bg-primary/10 text-primary">
-              {isAI
-                ? (
-                    <Bot className="h-4 w-4" />
-                  )
-                : (
-                    <User className="h-4 w-4" />
-                  )}
+              {isAI ? <Bot className="h-4 w-4" /> : <User className="h-4 w-4" />}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">
@@ -44,21 +39,22 @@ export function ProfileCard({ service, onSelect }: ProfileCardProps) {
 
         <div className="mt-4 flex items-center justify-between">
           <span className="text-lg font-semibold text-primary">
-            {isAI
-              ? `${service.price}€/mois`
-              : `${service.pricePerDays}€/jour`}
+            {isAI ? `${service.price}€/mois` : `${service.pricePerDays}€/jour`}
           </span>
         </div>
       </CardContent>
 
       <CardFooter>
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => onSelect?.(service)}
-        >
-          Voir le service
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={() => onSelect?.(service)}>
+            Voir le service
+          </Button>
+
+          
+          <Link href={`/services/${service.id}`}>
+            <Button variant="default">Commencer</Button>
+          </Link>
+        </div>
       </CardFooter>
     </Card>
   );
