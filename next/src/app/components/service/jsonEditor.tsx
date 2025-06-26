@@ -1,87 +1,160 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Editor from "@monaco-editor/react";
 import { useForm } from "react-hook-form";
-import {FormField, formSchema} from "../../../schemas/formBuilder";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { formSchema, FormField } from "../../../schemas/formBuilder";
+
+import {
+  Card, CardContent, CardDescription, CardHeader, CardTitle,
+} from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
+import { Button } from "@/app/components/ui/button";
+import { Alert, AlertDescription } from "@/app/components/ui/alert";
+import { Badge } from "@/app/components/ui/badge";
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from "@/app/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormField as ShadcnFormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/app/components/ui/form";
+
+import { AlertTriangle, RotateCcw, CheckCircle } from "lucide-react";
+
+type Props = {
+  // eslint-disable-next-line no-unused-vars
+  onSendData: (data: FormField[]) => void;
+};
 
 const defaultJson = `[
   {
-	"label": "Nom",
-	"name": "name",
-	"type": "text",
-	"required": true
+    "label": "Nom",
+    "name": "name",
+    "type": "text",
+    "required": true
   }
 ]`;
 
-export default function JsonEditor() {
-  const [jsonInput, setJsonInput] = useState<string>(defaultJson);
+// Schéma dynamique pour la validation du formulaire généré
+const createDynamicSchema = (fields: FormField[]) => {
+  const shape: Record<string, z.ZodTypeAny> = {};
 
+  fields.forEach((field) => {
+    if (field.name) {
+      let fieldSchema: z.ZodTypeAny = z.string();
+
+      if (field.type === "email") {
+        fieldSchema = z.string().email("Email invalide");
+      }
+      else if (field.type === "number") {
+        fieldSchema = z.string().transform(val => Number(val));
+      }
+
+      if (field.required) {
+        if (fieldSchema instanceof z.ZodString) {
+          fieldSchema = fieldSchema.min(1, "Ce champ est requis");
+        }
+      }
+      else {
+        fieldSchema = fieldSchema.optional();
+      }
+
+      shape[field.name] = fieldSchema;
+    }
+  });
+
+  return z.object(shape);
+};
+
+export default function JsonEditor({ onSendData }: Props) {
+  const [jsonInput, setJsonInput] = useState<string>(defaultJson);
   const [parsedFields, setParsedFields] = useState<FormField[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [invalidFields, setInvalidFields] = useState<string[]>([]);
+  const [_invalidFields, setInvalidFields] = useState<string[]>([]);
   const [lastValidField, setLastValidField] = useState<string>(defaultJson);
+  const [dynamicSchema, setDynamicSchema] = useState(z.object({}));
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const form = useForm<Record<string, string>>({
+    resolver: zodResolver(dynamicSchema),
+    defaultValues: {},
+    mode: "onChange",
+  });
+
+  const sendData = (data: FormField[]) => {
+    onSendData(data);
+  };
 
   useEffect(() => {
     parseJson(defaultJson);
   }, []);
 
-  // Réinitialiser le formulaire quand les champs changent pour éviter les conflits
   useEffect(() => {
     if (parsedFields.length > 0) {
-      reset();
+      // Créer un nouveau schéma basé sur les champs parsés
+      const newSchema = createDynamicSchema(parsedFields);
+      setDynamicSchema(newSchema);
+
+      // Créer les valeurs par défaut
+      const defaultValues: Record<string, string> = {};
+      parsedFields.forEach((field) => {
+        if (field.name) {
+          defaultValues[field.name] = "";
+        }
+      });
+
+      // Réinitialiser le formulaire avec le nouveau schéma
+      form.reset(defaultValues);
     }
-  }, [parsedFields, reset]);
+  }, [parsedFields, form]);
 
   const parseJson = (value: string) => {
     try {
       const parsed = JSON.parse(value);
-      
       if (!Array.isArray(parsed)) {
-        setError("❌ Le JSON doit être un tableau de champs");
+        setError("Le JSON doit être un tableau de champs");
         return;
       }
 
       const validFields: FormField[] = [];
       const invalidFieldsNames: string[] = [];
-      
-      parsed.forEach(
-		(field, index) => {
-				try {
-					const validField = formSchema.parse(field);
-					validFields.push(validField);
-				} catch (fieldErr: unknown) {
-					const fieldName = field?.name || field?.label || `Champ ${index + 1}`;
-					invalidFieldsNames.push(fieldName);
-				}
-			}
-	  );
+
+      parsed.forEach((field, index) => {
+        try {
+          const validField = formSchema.parse(field);
+          validFields.push(validField);
+        }
+        catch {
+          const fieldName = field?.name || field?.label || `Champ ${index + 1}`;
+          invalidFieldsNames.push(fieldName);
+        }
+      });
 
       setParsedFields(validFields);
       setInvalidFields(invalidFieldsNames);
       setLastValidField(value);
-      
+
       if (invalidFieldsNames.length > 0) {
-        setError(`⚠️ ${invalidFieldsNames.length} champ(s) ignoré(s): ${invalidFieldsNames.join(', ')}`);
-      } else {
-        setError(null);
+        setError(`${invalidFieldsNames.length} champ(s) ignoré(s): ${invalidFieldsNames.join(", ")}`);
       }
-      
-    } catch (err) {
-      setError("❌ JSON invalide - erreur de syntaxe (preview figée sur la dernière version valide)");
+      else {
+        setError(null);
+        sendData(validFields);
+      }
+    }
+    catch {
+      setError("JSON invalide - erreur de syntaxe (preview figée sur la dernière version valide)");
     }
   };
 
   const onEditorChange = (value: string | undefined) => {
     if (!value) return;
-
     setJsonInput(value);
     parseJson(value);
   };
@@ -91,128 +164,158 @@ export default function JsonEditor() {
     parseJson(lastValidField);
   };
 
-  const onSubmit = (data: unknown) => {
-    console.log("Form submitted ✅", data);
-  };
+  const isWarning = error && !error.includes("JSON invalide");
+  const isSyntaxError = error && error.includes("erreur de syntaxe");
 
   return (
     <div className="flex gap-6 p-6">
-      <div className="w-1/2 h-[500px] border rounded">
-        <Editor
-          height="100%"
-          defaultLanguage="json"
-          value={jsonInput}
-          onChange={onEditorChange}
-          theme="vs-dark"
-          options={{
-            minimap: { enabled: false },
-            fontSize: 14,
-            automaticLayout: true,
-          }}
-        />
-        {error && (
-          <div className="mt-2 text-sm">
-            {error.startsWith('⚠️') ? (
-              <p className="text-yellow-600 bg-yellow-50 p-2 rounded">{error}</p>
-            ) : (
-              <div className="text-red-500 bg-red-50 p-2 rounded">
-                <p>{error}</p>
-                {error.includes('erreur de syntaxe') && (
-                  <button
-                    onClick={restoreLastValidJson}
-                    className="mt-2 text-xs bg-red-100 hover:bg-red-200 px-2 py-1 rounded border border-red-300"
-                  >
-                    🔄 Restaurer la dernière version valide
-                  </button>
-                )}
-              </div>
-            )}
+      {/* Éditeur JSON */}
+      <Card className="w-1/2">
+        <CardHeader>
+          <CardTitle>Éditeur JSON</CardTitle>
+          <CardDescription>
+            Définissez la structure de votre formulaire en JSON
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="h-[500px] border rounded-md overflow-hidden border-[var(--border)]">
+            <Editor
+              height="100%"
+              defaultLanguage="json"
+              value={jsonInput}
+              onChange={onEditorChange}
+              theme="vs-dark"
+              options={{
+                minimap: { enabled: false },
+                fontSize: 14,
+                automaticLayout: true,
+              }}
+            />
           </div>
-        )}
-      </div>
+          {error && (
+            <div className="p-4">
+              <Alert variant={isWarning ? "default" : "destructive"}>
+                <AlertTriangle className="h-4 w-4" />
+                <AlertDescription className="flex items-center justify-between">
+                  <span>{error}</span>
+                  {isSyntaxError && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={restoreLastValidJson}
+                      className="ml-2"
+                    >
+                      <RotateCcw className="h-3 w-3 mr-1" />
+                      Restaurer
+                    </Button>
+                  )}
+                </AlertDescription>
+              </Alert>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg p-6 space-y-5">
-  <div className="flex items-center justify-between pb-3">
-    <h3 className="text-lg font-medium text-slate-200">
-      Aperçu du formulaire
-    </h3>
-    {parsedFields.length > 0 && (
-      <span className="px-2 py-1 bg-violet-500/20 text-violet-300 text-sm rounded border border-violet-500/30">
-        {parsedFields.length} champ{parsedFields.length > 1 ? 's' : ''}
-      </span>
-    )}
-    {error && error.includes('erreur de syntaxe') && (
-      <span className="px-2 py-1 bg-amber-500/20 text-amber-300 text-sm rounded border border-amber-500/30">
-        Version figée
-      </span>
-    )}
-  </div>
-
-  {parsedFields.length > 0 ? (
-    <form className="space-y-4">
-      {parsedFields.map((field) => {
-        // Vérification de sécurité pour éviter les erreurs undefined
-        if (!field || !field.name || !field.type) {
-          console.warn("Champ invalide ignoré:", field);
-          return null;
-        }
-        
-        return (
-          <div key={field.name} className="space-y-2">
-            <label className="block text-sm font-medium text-slate-300">
-              {field.label}
-            </label>
-            {field.type === 'select' ? (
-              <select
-                name={field.name}
-                required={field.required}
-                className="w-full px-3 py-2 rounded border border-slate-600 bg-slate-700/50 text-slate-200
-                         focus:border-violet-400 focus:ring-1 focus:ring-violet-400/50 focus:outline-none
-                         transition-colors"
-              >
-                <option value="">Sélectionnez...</option>
-                {'options' in field && Array.isArray(field.options) && field.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                type={field.type}
-                name={field.name}
-                required={field.required}
-                placeholder={field.placeholder}
-                className="w-full px-3 py-2 rounded border border-slate-600 bg-slate-700/50 text-slate-200
-                         focus:border-violet-400 focus:ring-1 focus:ring-violet-400/50 focus:outline-none
-                         transition-colors placeholder:text-slate-400"
-              />
-            )}
-            {errors[field.name] && (
-              <p className="text-sm text-red-400">
-                Ce champ est requis
-              </p>
-            )}
+      {/* Aperçu du formulaire */}
+      <Card className="w-1/2 bg-[var(--card)] text-[var(--card-foreground)] border-[var(--border)]">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Aperçu du formulaire</CardTitle>
+              <CardDescription>
+                Prévisualisation en temps réel
+              </CardDescription>
+            </div>
+            <div className="flex items-center gap-2">
+              {parsedFields.length > 0 && (
+                <Badge className="bg-[var(--accent)] text-[var(--accent-foreground)]">
+                  <CheckCircle className="h-3 w-3 mr-1" />
+                  {parsedFields.length}
+                  {" "}
+                  champ
+                  {parsedFields.length > 1 ? "s" : ""}
+                </Badge>
+              )}
+              {isSyntaxError && (
+                <Badge className="bg-[var(--muted)] text-[var(--muted-foreground)]">
+                  <AlertTriangle className="h-3 w-3 mr-1" />
+                  Version figée
+                </Badge>
+              )}
+            </div>
           </div>
-        );
-      }).filter(Boolean)}
-      
-      <div className="pt-2">
-        <button
-          type="submit"
-          className="w-full py-2 px-4 bg-violet-600 hover:bg-violet-500 text-white rounded
-                   transition-colors font-medium"
-        >
-          Envoyer
-        </button>
-      </div>
-    </form>
-  ) : (
-    <div className="text-center py-8">
-      <p className="text-slate-400">Aucun champ valide à afficher.</p>
-    </div>
-  )}
-</div>
+        </CardHeader>
+        <CardContent>
+          {parsedFields.length > 0
+            ? (
+                <Form {...form}>
+                  <div className="space-y-4">
+                    {parsedFields.map((field) => {
+                      if (!field?.name || !field?.type) return null;
+
+                      return (
+                        <ShadcnFormField
+                          key={field.name}
+                          control={form.control}
+                          name={field.name}
+                          render={({ field: formField }) => (
+                            <FormItem>
+                              <FormLabel>
+                                {field.label}
+                                {field.required && <span className="text-[var(--destructive)] ml-1">*</span>}
+                              </FormLabel>
+                              <FormControl>
+                                {field.type === "select"
+                                  ? (
+                                      <Select
+                                        onValueChange={formField.onChange}
+                                        value={formField.value}
+                                      >
+                                        <SelectTrigger className="bg-[var(--input)] border-[var(--border)] text-[var(--foreground)]">
+                                          <SelectValue placeholder="Sélectionnez..." />
+                                        </SelectTrigger>
+                                        <SelectContent className="bg-[var(--popover)] border-[var(--border)]">
+                                          {"options" in field && Array.isArray(field.options) && field.options.map(option => (
+                                            <SelectItem key={option} value={option}>
+                                              {option}
+                                            </SelectItem>
+                                          ))}
+                                        </SelectContent>
+                                      </Select>
+                                    )
+                                  : (
+                                      <Input
+                                        type={field.type}
+                                        placeholder={("placeholder" in field && typeof field.placeholder === "string") ? field.placeholder : ""}
+                                        className="bg-[var(--input)] text-[var(--foreground)] border-[var(--border)] focus:ring-[var(--ring)]"
+                                        {...formField}
+                                      />
+                                    )}
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      );
+                    })}
+
+                    <div className="pt-4">
+                      <Button
+                        className="w-full bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90"
+                      >
+                        Envoyer
+                      </Button>
+                    </div>
+                  </div>
+                </Form>
+              )
+            : (
+                <div className="text-center py-8 text-[var(--muted-foreground)]">
+                  Aucun champ valide à afficher.
+                </div>
+              )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
