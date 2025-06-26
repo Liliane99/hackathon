@@ -10,48 +10,48 @@ export const humanServices: Service[] = [
       id: "c1",
       name: "Alex Rodriguez",
       email: "alex.rodriguez@email.com",
-      phoneNumber: "+33 6 12 34 56 78"
+      phoneNumber: "+33 6 12 34 56 78",
     },
-    pricePerDays: 450
+    pricePerDays: 450,
   },
   {
-    id: "h2", 
+    id: "h2",
     type: "human",
     name: "Sarah Chen",
     description: "Product Owner expérimentée en méthodes agiles, Scrum Master certifiée avec expertise en gestion d'équipes tech",
     contractor: {
       id: "c2",
-      name: "Sarah Chen", 
+      name: "Sarah Chen",
       email: "sarah.chen@email.com",
-      phoneNumber: "+33 6 23 45 67 89"
+      phoneNumber: "+33 6 23 45 67 89",
     },
-    pricePerDays: 500
+    pricePerDays: 500,
   },
   {
     id: "h3",
-    type: "human", 
+    type: "human",
     name: "Thomas Dubois",
     description: "Développeur Laravel Backend avec expertise DevOps, Docker, Kubernetes et architecture microservices",
     contractor: {
       id: "c3",
       name: "Thomas Dubois",
-      email: "thomas.dubois@email.com", 
-      phoneNumber: "+33 6 34 56 78 90"
+      email: "thomas.dubois@email.com",
+      phoneNumber: "+33 6 34 56 78 90",
     },
-    pricePerDays: 420
+    pricePerDays: 420,
   },
   {
     id: "h4",
     type: "human",
-    name: "Marie Martin", 
+    name: "Marie Martin",
     description: "Responsable RH spécialisée en recrutement tech, gestion des talents et développement d'équipes",
     contractor: {
       id: "c4",
       name: "Marie Martin",
       email: "marie.martin@email.com",
-      phoneNumber: "+33 6 45 67 89 01" 
+      phoneNumber: "+33 6 45 67 89 01",
     },
-    pricePerDays: 380
+    pricePerDays: 380,
   },
   {
     id: "h5",
@@ -59,25 +59,25 @@ export const humanServices: Service[] = [
     name: "David Kim",
     description: "Designer UX/UI avec expertise en design systems, Figma, recherche utilisateur et prototypage",
     contractor: {
-      id: "c5", 
+      id: "c5",
       name: "David Kim",
       email: "david.kim@email.com",
-      phoneNumber: "+33 6 56 78 90 12"
+      phoneNumber: "+33 6 56 78 90 12",
     },
-    pricePerDays: 400
+    pricePerDays: 400,
   },
   {
     id: "h6",
     type: "human",
-    name: "Julie Lefebvre", 
+    name: "Julie Lefebvre",
     description: "Développeuse Vue.js avec expertise en performance web, PWA et optimisation frontend",
     contractor: {
       id: "c6",
       name: "Julie Lefebvre",
       email: "julie.lefebvre@email.com",
-      phoneNumber: "+33 6 67 78 89 01"
+      phoneNumber: "+33 6 67 78 89 01",
     },
-    pricePerDays: 430
+    pricePerDays: 430,
   },
   {
     id: "h7",
@@ -85,12 +85,12 @@ export const humanServices: Service[] = [
     name: "Kevin Patel",
     description: "Développeur Angular Senior, spécialiste PWA et applications web modernes",
     contractor: {
-      id: "c7", 
+      id: "c7",
       name: "Kevin Patel",
       email: "kevin.patel@email.com",
-      phoneNumber: "+33 6 78 89 01 23"
+      phoneNumber: "+33 6 78 89 01 23",
     },
-    pricePerDays: 460
+    pricePerDays: 460,
   },
   {
     id: "h8",
@@ -99,14 +99,14 @@ export const humanServices: Service[] = [
     description: "Développeuse Node.js avec expertise microservices, MongoDB et architecture scalable",
     contractor: {
       id: "c8",
-      name: "Amelia Johnson", 
+      name: "Amelia Johnson",
       email: "amelia.johnson@email.com",
-      phoneNumber: "+33 6 89 01 23 45"
+      phoneNumber: "+33 6 89 01 23 45",
     },
-    pricePerDays: 440
+    pricePerDays: 440,
   },
   {
-    id: "h9", 
+    id: "h9",
     type: "human",
     name: "Pierre Moreau",
     description: "Consultant RH spécialisé en transformation digitale et accompagnement des équipes tech",
@@ -114,9 +114,9 @@ export const humanServices: Service[] = [
       id: "c9",
       name: "Pierre Moreau",
       email: "pierre.moreau@email.com",
-      phoneNumber: "+33 6 90 12 34 56"
+      phoneNumber: "+33 6 90 12 34 56",
     },
-    pricePerDays: 390
+    pricePerDays: 390,
   },
   {
     id: "h10",
@@ -127,10 +127,10 @@ export const humanServices: Service[] = [
       id: "c10",
       name: "Emma Wilson",
       email: "emma.wilson@email.com",
-      phoneNumber: "+33 6 01 23 45 67"
+      phoneNumber: "+33 6 01 23 45 67",
     },
-    pricePerDays: 360
-  }
+    pricePerDays: 360,
+  },
 ];
 
 export const aiServices: Service[] = [
@@ -142,20 +142,28 @@ export const aiServices: Service[] = [
     contractor: {
       id: "ai-c1",
       name: "TechAI Solutions",
-      email: "contact@techai.com", 
-      phoneNumber: "+33 1 23 45 67 89"
+      email: "contact@techai.com",
+      phoneNumber: "+33 1 23 45 67 89",
     },
     agentAi: {
       id: "hire-bot-pro",
       endpointUrl: "https://api.techai.com/hirebot",
       modelName: "HireBot-v2.1",
-      inputParameters: ["job_title", "requirements", "company_culture", "salary_range", "benefits"],
-      outputParameters: ["job_description", "requirements_list", "benefits_list", "application_process", "seo_keywords"]
+      token: "your-api",
     },
-    price: 49
+    price: 49,
+    form: [
+      {
+        type: "text",
+        name: "position",
+        label: "Poste à pourvoir",
+        placeholder: "Ex: Développeur Frontend React",
+        required: true,
+      },
+    ],
   },
   {
-    id: "ai2", 
+    id: "ai2",
     type: "ai",
     name: "InterviewMaster",
     description: "IA générant des questions d'entretien personnalisées par poste avec évaluation des compétences",
@@ -163,16 +171,38 @@ export const aiServices: Service[] = [
       id: "ai-c2",
       name: "SmartHR Tech",
       email: "contact@smarthrtech.com",
-      phoneNumber: "+33 1 34 56 78 90" 
+      phoneNumber: "+33 1 34 56 78 90",
     },
     agentAi: {
       id: "interview-master",
       endpointUrl: "https://api.smarthrtech.com/interview",
-      modelName: "InterviewMaster-v3.0", 
-      inputParameters: ["position", "seniority", "skills_required", "interview_type", "company_context"],
-      outputParameters: ["technical_questions", "behavioral_questions", "situational_questions", "evaluation_criteria", "scoring_rubric"]
+      modelName: "InterviewMaster-v3.0",
+      token: "your-api",
     },
-    price: 35
+    price: 35,
+    form: [
+      {
+        type: "text",
+        name: "position",
+        label: "Poste à évaluer",
+        placeholder: "Ex: Développeur Full Stack",
+        required: true,
+      },
+      {
+        type: "select",
+        name: "seniority",
+        label: "Niveau de séniorité",
+        options: ["Junior", "Mid", "Senior", "Lead"],
+        required: true,
+      },
+      {
+        type: "textarea",
+        name: "skills_required",
+        label: "Compétences requises",
+        placeholder: "Listez les compétences techniques et soft skills",
+        required: true,
+      },
+    ],
   },
   {
     id: "ai3",
@@ -183,16 +213,38 @@ export const aiServices: Service[] = [
       id: "ai-c3",
       name: "DevTools AI",
       email: "contact@devtoolsai.com",
-      phoneNumber: "+33 1 45 67 89 01"
+      phoneNumber: "+33 1 45 67 89 01",
     },
     agentAi: {
       id: "code-reviewer",
       endpointUrl: "https://api.devtoolsai.com/review",
       modelName: "CodeReviewer-v1.5",
-      inputParameters: ["code_language", "code_content", "review_level", "style_guide"],
-      outputParameters: ["bug_detection", "improvement_suggestions", "performance_tips", "security_analysis"]
+      token: "your-api",
     },
-    price: 89
+    price: 89,
+    form: [
+      {
+        type: "select",
+        name: "code_language",
+        label: "Langage de programmation",
+        options: ["JavaScript", "TypeScript", "Python", "PHP", "Java", "C#"],
+        required: true,
+      },
+      {
+        type: "textarea",
+        name: "code_content",
+        label: "Code à analyser",
+        placeholder: "Collez votre code ici...",
+        required: true,
+      },
+      {
+        type: "select",
+        name: "review_level",
+        label: "Niveau de revue",
+        options: ["Basique", "Approfondi", "Expert"],
+        required: true,
+      },
+    ],
   },
   {
     id: "ai4",
@@ -203,17 +255,47 @@ export const aiServices: Service[] = [
       id: "ai-c4",
       name: "ProjectAI Corp",
       email: "contact@projectai.com",
-      phoneNumber: "+33 1 56 78 90 12"
+      phoneNumber: "+33 1 56 78 90 12",
     },
     agentAi: {
       id: "project-planner",
       endpointUrl: "https://api.projectai.com/plan",
       modelName: "ProjectPlanner-v2.0",
-      inputParameters: ["project_scope", "team_size", "technologies", "deadline", "complexity"],
-      outputParameters: ["timeline", "milestones", "resource_allocation", "risk_assessment", "deliverables"]
+      token: "your-api",
     },
-    price: 120
-  }
+    price: 120,
+    form: [
+      {
+        type: "textarea",
+        name: "project_scope",
+        label: "Périmètre du projet",
+        placeholder: "Décrivez le scope du projet...",
+        required: true,
+      },
+      {
+        type: "number",
+        name: "team_size",
+        label: "Taille de l'équipe",
+        min: 1,
+        max: 50,
+        required: true,
+      },
+      {
+        type: "text",
+        name: "technologies",
+        label: "Technologies utilisées",
+        placeholder: "Ex: React, Node.js, MongoDB",
+        required: true,
+      },
+      {
+        type: "text",
+        name: "deadline",
+        label: "Date limite",
+        placeholder: "Ex: 6 mois",
+        required: true,
+      },
+    ],
+  },
 ];
 
 export const alternativeProfiles: Record<string, Service[]> = {
@@ -221,15 +303,15 @@ export const alternativeProfiles: Record<string, Service[]> = {
     {
       id: "h11",
       type: "human",
-      name: "Julie Lefebvre", 
+      name: "Julie Lefebvre",
       description: "Développeuse Vue.js avec expertise en performance web, PWA et optimisation frontend",
       contractor: {
         id: "c11",
         name: "Julie Lefebvre",
         email: "julie.lefebvre@email.com",
-        phoneNumber: "+33 6 67 78 89 01"
+        phoneNumber: "+33 6 67 78 89 01",
       },
-      pricePerDays: 430
+      pricePerDays: 430,
     },
     {
       id: "h12",
@@ -237,13 +319,13 @@ export const alternativeProfiles: Record<string, Service[]> = {
       name: "Kevin Patel",
       description: "Développeur Angular Senior, spécialiste PWA et applications web modernes",
       contractor: {
-        id: "c12", 
+        id: "c12",
         name: "Kevin Patel",
         email: "kevin.patel@email.com",
-        phoneNumber: "+33 6 78 89 01 23"
+        phoneNumber: "+33 6 78 89 01 23",
       },
-      pricePerDays: 460
-    }
+      pricePerDays: 460,
+    },
   ],
   backend: [
     {
@@ -253,16 +335,16 @@ export const alternativeProfiles: Record<string, Service[]> = {
       description: "Développeuse Node.js avec expertise microservices, MongoDB et architecture scalable",
       contractor: {
         id: "c13",
-        name: "Amelia Johnson", 
+        name: "Amelia Johnson",
         email: "amelia.johnson@email.com",
-        phoneNumber: "+33 6 89 01 23 45"
+        phoneNumber: "+33 6 89 01 23 45",
       },
-      pricePerDays: 440
-    }
+      pricePerDays: 440,
+    },
   ],
   rh: [
     {
-      id: "h14", 
+      id: "h14",
       type: "human",
       name: "Pierre Moreau",
       description: "Consultant RH spécialisé en transformation digitale et accompagnement des équipes tech",
@@ -270,10 +352,10 @@ export const alternativeProfiles: Record<string, Service[]> = {
         id: "c14",
         name: "Pierre Moreau",
         email: "pierre.moreau@email.com",
-        phoneNumber: "+33 6 90 12 34 56"
+        phoneNumber: "+33 6 90 12 34 56",
       },
-      pricePerDays: 390
-    }
+      pricePerDays: 390,
+    },
   ],
   design: [
     {
@@ -285,10 +367,10 @@ export const alternativeProfiles: Record<string, Service[]> = {
         id: "c15",
         name: "Sophie Laurent",
         email: "sophie.laurent@email.com",
-        phoneNumber: "+33 6 11 22 33 44"
+        phoneNumber: "+33 6 11 22 33 44",
       },
-      pricePerDays: 380
-    }
+      pricePerDays: 380,
+    },
   ],
   qa: [
     {
@@ -300,10 +382,10 @@ export const alternativeProfiles: Record<string, Service[]> = {
         id: "c16",
         name: "Emma Wilson",
         email: "emma.wilson@email.com",
-        phoneNumber: "+33 6 01 23 45 67"
+        phoneNumber: "+33 6 01 23 45 67",
       },
-      pricePerDays: 360
-    }
+      pricePerDays: 360,
+    },
   ],
   management: [
     {
@@ -315,16 +397,16 @@ export const alternativeProfiles: Record<string, Service[]> = {
         id: "c17",
         name: "Lucas Martinez",
         email: "lucas.martinez@email.com",
-        phoneNumber: "+33 6 22 33 44 55"
+        phoneNumber: "+33 6 22 33 44 55",
       },
-      pricePerDays: 480
-    }
-  ]
+      pricePerDays: 480,
+    },
+  ],
 };
 
 export const mockTeam: Team = {
   id: "team-1",
-  projectId: "project-1", 
+  projectId: "project-1",
   name: "Équipe Développement Web + RH",
   description: "Équipe complète pour développer une plateforme e-commerce avec gestion RH intégrée",
   status: "building",
@@ -332,30 +414,30 @@ export const mockTeam: Team = {
     {
       id: "slot-1",
       role: "Chef de Projet / Product Owner",
-      category: "management", 
+      category: "management",
       isRequired: true,
       isAssigned: true,
       assignedService: humanServices[1],
       requirements: ["Agile", "Scrum", "Leadership", "Product Management"],
       seniority: "senior",
       description: "Responsable de la coordination projet et de la définition du produit",
-      estimatedWorkload: "Temps plein"
+      estimatedWorkload: "Temps plein",
     },
     {
-      id: "slot-2", 
+      id: "slot-2",
       role: "Développeur Frontend React",
       category: "frontend",
       isRequired: true,
-      isAssigned: true, 
-      assignedService: humanServices[0], 
+      isAssigned: true,
+      assignedService: humanServices[0],
       requirements: ["React", "TypeScript", "Tailwind CSS", "Next.js"],
       seniority: "senior",
       description: "Développement de l'interface utilisateur et expérience client",
-      estimatedWorkload: "Temps plein"
+      estimatedWorkload: "Temps plein",
     },
     {
       id: "slot-3",
-      role: "Développeur Backend Laravel", 
+      role: "Développeur Backend Laravel",
       category: "backend",
       isRequired: true,
       isAssigned: true,
@@ -363,37 +445,37 @@ export const mockTeam: Team = {
       requirements: ["Laravel", "PHP", "MySQL", "Docker", "API REST"],
       seniority: "mid",
       description: "Développement des APIs et architecture backend",
-      estimatedWorkload: "Temps plein"
+      estimatedWorkload: "Temps plein",
     },
     {
       id: "slot-4",
       role: "Responsable RH",
-      category: "rh", 
+      category: "rh",
       isRequired: true,
       isAssigned: true,
-      assignedService: humanServices[3], 
+      assignedService: humanServices[3],
       requirements: ["Recrutement", "Gestion équipe", "Droit du travail", "Formation"],
       seniority: "senior",
       description: "Gestion des ressources humaines et recrutement",
-      estimatedWorkload: "50%"
+      estimatedWorkload: "50%",
     },
     {
       id: "slot-5",
       role: "Créateur d'offres d'emploi IA",
       category: "rh",
-      isRequired: false, 
+      isRequired: false,
       isAssigned: true,
-      assignedService: aiServices[0], 
+      assignedService: aiServices[0],
       requirements: ["Rédaction", "Marketing RH", "SEO"],
       description: "Automatisation de la création d'offres d'emploi",
     },
     {
-      id: "slot-6", 
+      id: "slot-6",
       role: "Générateur de questions d'entretien IA",
       category: "rh",
       isRequired: false,
       isAssigned: true,
-      assignedService: aiServices[1], 
+      assignedService: aiServices[1],
       requirements: ["Psychologie", "Évaluation compétences", "Questions techniques"],
       description: "Génération automatique de questions d'entretien personnalisées",
     },
@@ -403,11 +485,11 @@ export const mockTeam: Team = {
       category: "design",
       isRequired: false,
       isAssigned: true,
-      assignedService: humanServices[4], 
+      assignedService: humanServices[4],
       requirements: ["Figma", "Design System", "User Research", "Prototypage"],
       seniority: "mid",
       description: "Conception de l'expérience utilisateur et interface",
-      estimatedWorkload: "50%"
+      estimatedWorkload: "50%",
     },
     {
       id: "slot-8",
@@ -418,8 +500,8 @@ export const mockTeam: Team = {
       requirements: ["Tests automatisés", "Cypress", "Jest", "Test Strategy"],
       seniority: "mid",
       description: "Assurance qualité et tests",
-      estimatedWorkload: "50%"
-    }
+      estimatedWorkload: "50%",
+    },
   ],
   createdAt: new Date("2025-06-20"),
   updatedAt: new Date(),
@@ -434,24 +516,24 @@ export const mockProject: Project = {
   requirements: {
     description: "Site web en React frontend et Laravel backend, avec équipe RH pour recruter et gérer l'équipe de développement",
     technologies: ["React", "Laravel", "MySQL", "Docker", "TypeScript", "Tailwind CSS"],
-    timeline: "6 mois", 
+    timeline: "6 mois",
     budget: 150000,
     teamSize: 7,
     priority: "high",
     deliverables: [
       "Interface utilisateur responsive",
-      "API REST complète", 
+      "API REST complète",
       "Système de paiement",
       "Panel d'administration",
       "Module RH intégré",
-      "Tests automatisés"
+      "Tests automatisés",
     ],
     constraints: [
       "Compatible mobile-first",
       "Performance optimisée",
       "Sécurité renforcée",
-      "Scalabilité prévue"
-    ]
+      "Scalabilité prévue",
+    ],
   },
   ownerId: "owner-1",
   ownerName: "Jean Dupont",
@@ -463,5 +545,5 @@ export const mockProject: Project = {
   expectedEndDate: new Date("2025-12-15"),
   tags: ["e-commerce", "rh", "web", "startup"],
   industry: "E-commerce",
-  companySize: "small"
+  companySize: "small",
 };

@@ -1,13 +1,12 @@
-import { ProfileList } from '@/app/components/profiles/ProfileList';
-import { ProfileFilters } from '@/app/components/profiles/ProfileFilters';
-import { Badge } from '@/app/components/ui/badge';
-import { Button } from '@/app/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
-import { CATEGORIES } from '@/lib/constants';
-import { SlotCategory } from '@/types';
-import { getServicesByCategory } from '@/lib/api';
-import { Metadata } from 'next';
+import { ProfileList } from "@/app/components/profiles/ProfileList";
+import { ProfileFilters } from "@/app/components/profiles/ProfileFilters";
+import { Badge } from "@/app/components/ui/badge";
+import { Button } from "@/app/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { CATEGORIES } from "@/lib/constants";
+import { SlotCategory } from "@/types";
+import { getServicesByCategory } from "@/lib/api";
 
 interface PageProps {
   params: {
@@ -15,23 +14,15 @@ interface PageProps {
   };
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const categoryName = CATEGORIES[params.category as SlotCategory] || 'Tous les profils';
-  
-  return {
-    title: `${categoryName} - TeamBuilder`,
-    description: `Découvrez tous les talents ${categoryName.toLowerCase()} disponibles`,
-  };
-}
-
 export default async function CategoryProfilesPage({ params }: PageProps) {
   const category = params.category as SlotCategory;
-  const categoryName = CATEGORIES[category] || 'Tous les profils';
-  
+  const categoryName = CATEGORIES[category] || "Tous les profils";
+
   let profiles;
   try {
-    profiles = category === 'all' ? [] : await getServicesByCategory(category);
-  } catch (error) {
+    profiles = category === "all" ? [] : await getServicesByCategory(category);
+  }
+  catch (error) {
     profiles = [];
   }
 
@@ -45,16 +36,16 @@ export default async function CategoryProfilesPage({ params }: PageProps) {
               Retour à l'équipe
             </Button>
           </Link>
-          {category !== 'all' && (
+          {category !== "all" && (
             <Badge variant="secondary">{categoryName}</Badge>
           )}
         </div>
-        
+
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          {category === 'all' ? 'Tous les profils' : `Profils ${categoryName}`}
+          {category === "all" ? "Tous les profils" : `Profils ${categoryName}`}
         </h1>
         <p className="text-gray-600 max-w-2xl">
-          Découvrez tous les talents et agents IA disponibles dans cette catégorie. 
+          Découvrez tous les talents et agents IA disponibles dans cette catégorie.
           Cliquez sur un profil pour voir ses détails et l'ajouter à votre équipe.
         </p>
       </div>
@@ -64,9 +55,8 @@ export default async function CategoryProfilesPage({ params }: PageProps) {
           <ProfileFilters />
         </div>
         <div className="lg:col-span-3">
-          <ProfileList 
-            profiles={profiles} 
-            title={`${profiles.length} profil(s) trouvé(s)`}
+          <ProfileList
+            profiles={profiles}
           />
         </div>
       </div>

@@ -5,16 +5,16 @@ export const teamSlotSchema = z.object({
   id: z.string().uuid(),
   role: z.string(),
   category: z.enum([
-    "frontend", 
-    "backend", 
-    "fullstack", 
-    "devops", 
-    "rh", 
-    "management", 
-    "design", 
+    "frontend",
+    "backend",
+    "fullstack",
+    "devops",
+    "rh",
+    "management",
+    "design",
     "qa",
     "marketing",
-    "data"
+    "data",
   ]),
   isRequired: z.boolean(),
   isAssigned: z.boolean().default(false),
@@ -22,7 +22,7 @@ export const teamSlotSchema = z.object({
   requirements: z.array(z.string()).optional(),
   seniority: z.enum(["junior", "mid", "senior", "lead"]).optional(),
   description: z.string().optional(),
-  estimatedWorkload: z.string().optional(), 
+  estimatedWorkload: z.string().optional(),
 });
 
 export const teamSchema = z.object({

@@ -14,10 +14,10 @@ export function TeamSlot({ slot }: TeamSlotProps) {
           {slot.isRequired ? "Obligatoire" : "Optionnel"}
         </Badge>
       </div>
-      
+
       {slot.requirements && (
         <div className="flex flex-wrap gap-1 mt-2">
-          {slot.requirements.map((req) => (
+          {slot.requirements.map(req => (
             <Badge key={req} variant="outline" className="text-xs">
               {req}
             </Badge>

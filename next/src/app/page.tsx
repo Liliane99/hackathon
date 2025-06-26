@@ -1,16 +1,16 @@
-import Link from 'next/link';
-import { Button } from '@/app/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/components/ui/card';
-import { Badge } from '@/app/components/ui/badge';
-import { 
-  Users, 
-  Bot, 
-  Zap, 
-  Target, 
-  ArrowRight, 
+import Link from "next/link";
+import { Button } from "@/app/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
+import { Badge } from "@/app/components/ui/badge";
+import {
+  Users,
+  Bot,
+  Zap,
+  Target,
+  ArrowRight,
   Clock,
-  Shield
-} from 'lucide-react';
+  Shield,
+} from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -28,11 +28,11 @@ export default function HomePage() {
                   <span className="text-primary"> parfaite</span>
                 </h1>
                 <p className="text-xl text-gray-600 leading-relaxed">
-                  La plateforme qui connecte vos projets avec les meilleurs talents humains 
+                  La plateforme qui connecte vos projets avec les meilleurs talents humains
                   et agents IA pour réussir vos développements.
                 </p>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/team">
                   <Button size="lg" className="w-full sm:w-auto group">
@@ -40,9 +40,9 @@ export default function HomePage() {
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Link href="/profiles/all">
+                <Link href="/services/integration">
                   <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                    Découvrir les profils
+                    Intégrer mon service
                   </Button>
                 </Link>
               </div>
@@ -124,7 +124,7 @@ export default function HomePage() {
               Pourquoi choisir TeamBuilder ?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Une approche révolutionnaire qui combine talents humains et intelligence artificielle 
+              Une approche révolutionnaire qui combine talents humains et intelligence artificielle
               pour des projets exceptionnels.
             </p>
           </div>

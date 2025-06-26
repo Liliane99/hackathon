@@ -11,18 +11,18 @@ export function Navbar() {
               TeamBuilder
             </Link>
           </div>
-          
+
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/team" className="text-gray-700 hover:text-primary transition-colors">
               Équipes
             </Link>
-            <Link href="/profiles" className="text-gray-700 hover:text-primary transition-colors">
-              Profils
+            <Link href="/services" className="text-gray-700 hover:text-primary transition-colors">
+              Tous les services
             </Link>
             <Button variant="outline">Se connecter</Button>
             <Button>Commencer</Button>
           </div>
-          
+
           <div className="md:hidden">
             <Button variant="ghost" size="sm">
               Menu
