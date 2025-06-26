@@ -11,6 +11,7 @@ import {
   Clock,
   Shield,
 } from "lucide-react";
+import Pricing from "@/components/Pricing";
 
 export default function HomePage() {
   return (
@@ -34,7 +35,7 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/team">
+                <Link href="/search-agent">
                   <Button size="lg" className="w-full sm:w-auto group">
                     Commencer maintenant
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -65,7 +66,7 @@ export default function HomePage() {
 
             <div className="relative">
               <div className="grid grid-cols-2 gap-4">
-                <Card className="transform rotate-2 hover:rotate-0 transition-transform">
+                <Card className="bg-white transform rotate-2 hover:rotate-0 transition-transform">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Users className="h-5 w-5 text-primary" />
@@ -77,7 +78,7 @@ export default function HomePage() {
                   </CardContent>
                 </Card>
 
-                <Card className="transform -rotate-2 hover:rotate-0 transition-transform mt-8">
+                <Card className="bg-white transform -rotate-2 hover:rotate-0 transition-transform mt-8">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Bot className="h-5 w-5 text-primary" />
@@ -89,7 +90,7 @@ export default function HomePage() {
                   </CardContent>
                 </Card>
 
-                <Card className="transform rotate-1 hover:rotate-0 transition-transform -mt-4">
+                <Card className="bg-white transform rotate-1 hover:rotate-0 transition-transform -mt-4">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Zap className="h-5 w-5 text-primary" />
@@ -101,7 +102,7 @@ export default function HomePage() {
                   </CardContent>
                 </Card>
 
-                <Card className="transform -rotate-1 hover:rotate-0 transition-transform">
+                <Card className="bg-white transform -rotate-1 hover:rotate-0 transition-transform">
                   <CardHeader className="pb-3">
                     <div className="flex items-center gap-2">
                       <Target className="h-5 w-5 text-primary" />
@@ -117,11 +118,12 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Pourquoi choisir TeamBuilder ?
+              Pourquoi nous choisir ?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Une approche révolutionnaire qui combine talents humains et intelligence artificielle
@@ -130,7 +132,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Clock className="h-6 w-6 text-primary" />
@@ -144,7 +146,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Shield className="h-6 w-6 text-primary" />
@@ -158,7 +160,7 @@ export default function HomePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow">
               <CardHeader>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                   <Bot className="h-6 w-6 text-primary" />
@@ -174,6 +176,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Section Abonnements */}
+	  <Pricing />
+ 
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -218,6 +224,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <section className="py-20 bg-primary text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-700"></div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -228,7 +235,7 @@ export default function HomePage() {
             Rejoignez les centaines d'entreprises qui nous font confiance pour leurs projets les plus ambitieux.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/team">
+            <Link href="/search-page">
               <Button size="lg" variant="secondary" className="group">
                 Commencer gratuitement
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
