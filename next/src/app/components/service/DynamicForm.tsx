@@ -95,10 +95,25 @@ export default function DynamicForm({
             value={formData[field.name] || ''}
             onChange={(e) => handleInputChange(field.name, e.target.value)}
             className={`${baseClasses} ${errorClasses}`}
-            placeholder={`Entrez ${field.label.toLowerCase()}`}
+            placeholder={field.placeholder}
             required={field.required}
           />
         )
+
+	  case 'textarea':	
+		return (
+		  <textarea
+			id={field.name}
+			name={field.name}
+			value={formData[field.name] || ''}
+			onChange={(e) => handleInputChange(field.name, e.target.value)}
+			className={`${baseClasses} ${errorClasses}`}
+			placeholder={field.placeholder}
+			rows={field.rows}
+			cols={field.cols}
+			required={field.required}
+		  />
+		)
 
       case 'email':
         return (
@@ -125,7 +140,7 @@ export default function DynamicForm({
             max={field.max}
             onChange={(e) => handleInputChange(field.name, e.target.value)}
             className={`${baseClasses} ${errorClasses}`}
-            placeholder={`Entrez ${field.label.toLowerCase()}`}
+            placeholder={field.placeholder}
             required={field.required}
           />
         )
@@ -141,7 +156,7 @@ export default function DynamicForm({
             className={`${baseClasses} ${errorClasses} cursor-pointer`}
             required={field.required}
           >
-            <option value="">Sélectionnez {field.label.toLowerCase()}</option>
+            <option value="">{field.placeholder}</option>
             {field.options.map((option, index) => (
               <option key={index} value={option}>
                 {option}

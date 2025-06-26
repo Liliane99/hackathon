@@ -27,6 +27,7 @@ import {
 } from "@/app/components/ui/form";
 
 import { AlertTriangle, RotateCcw, CheckCircle } from "lucide-react";
+import DynamicForm from "@/app/components/service/DynamicForm";
 
 type Props = {
   // eslint-disable-next-line no-unused-vars
@@ -174,7 +175,6 @@ export default function JsonEditor({ onSendData }: Props) {
 
   return (
     <div className="flex gap-6 p-6">
-      {/* Éditeur JSON */}
       <Card className="w-1/2">
         <CardHeader>
           <CardTitle>Éditeur JSON</CardTitle>
@@ -221,7 +221,7 @@ export default function JsonEditor({ onSendData }: Props) {
         </CardContent>
       </Card>
 
-      {/* Aperçu du formulaire */}
+      
       <Card className="w-1/2 bg-[var(--card)] text-[var(--card-foreground)] border-[var(--border)]">
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -253,66 +253,13 @@ export default function JsonEditor({ onSendData }: Props) {
         <CardContent>
           {parsedFields.length > 0
             ? (
-                <Form {...form}>
-                  <div className="space-y-4">
-                    {parsedFields.map((field) => {
-                      if (!field?.name || !field?.type) return null;
-
-                      return (
-                        <ShadcnFormField
-                          key={field.name}
-                          control={form.control}
-                          name={field.name}
-                          render={({ field: formField }) => (
-                            <FormItem>
-                              <FormLabel>
-                                {field.label}
-                                {field.required && <span className="text-[var(--destructive)] ml-1">*</span>}
-                              </FormLabel>
-                              <FormControl>
-                                {field.type === "select"
-                                  ? (
-                                      <Select
-                                        onValueChange={formField.onChange}
-                                        value={formField.value}
-                                      >
-                                        <SelectTrigger className="bg-[var(--input)] border-[var(--border)] text-[var(--foreground)]">
-                                          <SelectValue placeholder={(field.placeholder ?? "Sélectionner...")} />
-                                        </SelectTrigger>
-                                        <SelectContent className="bg-[var(--popover)] border-[var(--border)]">
-                                          {"options" in field && Array.isArray(field.options) && field.options.map(option => (
-                                            <SelectItem key={option} value={option}>
-                                              {option}
-                                            </SelectItem>
-                                          ))}
-                                        </SelectContent>
-                                      </Select>
-                                    )
-                                  : (
-                                      <Input
-                                        type={field.type}
-                                        placeholder={(field.placeholder ?? field.label)}
-                                        className="bg-[var(--input)] text-[var(--foreground)] border-[var(--border)] focus:ring-[var(--ring)]"
-                                        {...formField}
-                                      />
-                                    )}
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                      );
-                    })}
-
-                    <div className="pt-4">
-                      <Button
-                        className="w-full bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90"
-                      >
-                        Envoyer
-                      </Button>
-                    </div>
-                  </div>
-                </Form>
+                <DynamicForm
+					fields={parsedFields}
+					onSubmit={(data) => {
+						console.log("Form data submitted:", data);
+					}}
+					submitLabel={"Envoyer"}
+				/>
               )
             : (
                 <div className="text-center py-8 text-[var(--muted-foreground)]">
