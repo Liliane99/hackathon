@@ -3,6 +3,7 @@ import { z } from "zod";
 const baseField = z.object({
   label: z.string(),
   name: z.string(),
+  placeholder: z.string().optional(),
   required: z.boolean().optional(),
 });
 
@@ -25,11 +26,18 @@ const numberField = baseField.extend({
   max: z.number().optional(),
 });
 
+const textAreaField = baseField.extend({
+  type: z.literal("textarea"),
+  rows: z.number().optional(),
+  cols: z.number().optional(),
+});
+
 export const formSchema = z.discriminatedUnion("type", [
   textField,
   emailField,
   selectField,
   numberField,
+  textAreaField,
 ]);
 
 export type FormField = z.infer<typeof formSchema>;

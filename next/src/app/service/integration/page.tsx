@@ -91,16 +91,16 @@ export default function HomePage() {
     setDebugMessage(`❌ Erreur de validation: ${errorCount} champ(s) invalide(s). Premier champ: ${firstError}`);
   }
 
-  const handleTypeChange = (newType: "ai" | "human") => {
-    setServiceType(newType);
-    setDebugMessage(""); // Clear debug message when changing type
+  const handleTypeChange = (value: Service["type"]) => {
+    setServiceType(value);
+    setDebugMessage("");
   };
 
-  // Components pour les champs communs
-  const CommonFieldsIa = ({ form }: { form: UseFormReturn<z.infer<typeof createServiceIaSchema>> }) => (
+  const CommonFieldsIa = (
+    { form }: { form: UseFormReturn<z.infer<typeof createServiceIaSchema>> },
+  ) => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Nom */}
         <FormField
           control={form.control}
           name="name"
@@ -121,7 +121,6 @@ export default function HomePage() {
           )}
         />
 
-        {/* Prix */}
         <FormField
           control={form.control}
           name="price"
@@ -172,7 +171,6 @@ export default function HomePage() {
   const CommonFieldsHuman = ({ form }: { form: UseFormReturn<z.infer<typeof createServiceHumanSchema>> }) => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Nom */}
         <FormField
           control={form.control}
           name="name"
@@ -193,7 +191,6 @@ export default function HomePage() {
           )}
         />
 
-        {/* Prix par jour */}
         <FormField
           control={form.control}
           name="pricePerDays"
@@ -220,7 +217,6 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Description */}
       <FormField
         control={form.control}
         name="description"
@@ -243,20 +239,17 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted to-background relative overflow-hidden">
-      {/* Effets lumineux */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-40 right-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }}></div>
         <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "4s" }}></div>
       </div>
 
-      {/* Formes flottantes */}
       <div className="absolute top-1/4 left-10 w-4 h-4 bg-primary/30 rotate-45 animate-float"></div>
       <div className="absolute top-1/3 right-1/4 w-6 h-6 bg-secondary/30 rounded-full animate-float" style={{ animationDelay: "1s" }}></div>
       <div className="absolute bottom-1/4 left-1/3 w-5 h-5 bg-primary/30 rotate-12 animate-float" style={{ animationDelay: "2s" }}></div>
 
       <div className="relative z-10">
-        {/* Header */}
         <div className="text-center py-12 px-4">
           <Badge variant="secondary" className="mb-6">
             <Sparkles className="w-4 h-4 mr-2" />
@@ -271,18 +264,19 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 pb-12">
-          {/* Message de débogage */}
-          {debugMessage && (
-            <Card className="mb-6 bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
-              <CardContent className="p-4">
-                <p className="text-green-800 dark:text-green-200 font-medium">{debugMessage}</p>
-              </CardContent>
-            </Card>
-          )}
+          {
+            debugMessage
+            && (
+              <Card className="mb-6 bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+                <CardContent className="p-4">
+                  <p className="text-green-800 dark:text-green-200 font-medium">{debugMessage}</p>
+                </CardContent>
+              </Card>
+            )
+          }
 
           <Card className="bg-background/80 backdrop-blur-xl shadow-2xl">
             <CardContent className="p-8">
-              {/* Sélecteur de type de service */}
               <div className="space-y-4 mb-8">
                 <Label className="text-sm font-semibold flex items-center gap-2">
                   <Settings className="w-4 h-4" />
@@ -293,7 +287,6 @@ export default function HomePage() {
                   onValueChange={handleTypeChange}
                   className="grid grid-cols-1 md:grid-cols-2 gap-4"
                 >
-                  {/* Service IA */}
                   <div className="relative">
                     <RadioGroupItem value="ai" id="ai" className="sr-only" />
                     <Label
@@ -322,7 +315,6 @@ export default function HomePage() {
                     </Label>
                   </div>
 
-                  {/* Service Humain */}
                   <div className="relative">
                     <RadioGroupItem value="human" id="human" className="sr-only" />
                     <Label
@@ -353,13 +345,11 @@ export default function HomePage() {
                 </RadioGroup>
               </div>
 
-              {/* Formulaire IA */}
               {serviceType === "ai" && (
                 <Form {...formIaService}>
                   <form onSubmit={formIaService.handleSubmit(onSubmitIaService, onError)} className="space-y-8">
                     <CommonFieldsIa form={formIaService} />
 
-                    {/* Configuration IA */}
                     <Card className="bg-muted/50 backdrop-blur-sm">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
@@ -422,7 +412,6 @@ export default function HomePage() {
                           />
                         </div>
 
-                        {/* Éditeur JSON */}
                         <Card className="bg-muted/30 backdrop-blur-sm">
                           <CardHeader>
                             <CardTitle className="flex items-center gap-3">
@@ -446,7 +435,6 @@ export default function HomePage() {
                       </CardContent>
                     </Card>
 
-                    {/* Bouton submit IA */}
                     <div className="pt-6">
                       <Button
                         type="submit"
@@ -461,13 +449,11 @@ export default function HomePage() {
                 </Form>
               )}
 
-              {/* Formulaire Humain */}
               {serviceType === "human" && (
                 <Form {...formHumanService}>
                   <form onSubmit={formHumanService.handleSubmit(onSubmitHumanService, onError)} className="space-y-8">
                     <CommonFieldsHuman form={formHumanService} />
 
-                    {/* Information spécifique service humain */}
                     <Card className="bg-muted/50 backdrop-blur-sm">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-2">
@@ -487,7 +473,6 @@ export default function HomePage() {
                       </CardContent>
                     </Card>
 
-                    {/* Bouton submit Humain */}
                     <div className="pt-6">
                       <Button
                         type="submit"

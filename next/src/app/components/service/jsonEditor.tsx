@@ -42,7 +42,6 @@ const defaultJson = `[
   }
 ]`;
 
-// Schéma dynamique pour la validation du formulaire généré
 const createDynamicSchema = (fields: FormField[]) => {
   const shape: Record<string, z.ZodTypeAny> = {};
 
@@ -97,11 +96,9 @@ export default function JsonEditor({ onSendData }: Props) {
 
   useEffect(() => {
     if (parsedFields.length > 0) {
-      // Créer un nouveau schéma basé sur les champs parsés
       const newSchema = createDynamicSchema(parsedFields);
       setDynamicSchema(newSchema);
 
-      // Créer les valeurs par défaut
       const defaultValues: Record<string, string> = {};
       parsedFields.forEach((field) => {
         if (field.name) {
@@ -109,14 +106,13 @@ export default function JsonEditor({ onSendData }: Props) {
         }
       });
 
-      // Réinitialiser le formulaire avec le nouveau schéma
       form.reset(defaultValues);
     }
   }, [parsedFields, form]);
 
   const parseJson = (value: string) => {
     try {
-      const parsed = JSON.parse(value);
+      const parsed = JSON.parse(value) as FormField[];
       if (!Array.isArray(parsed)) {
         setError("Le JSON doit être un tableau de champs");
         return;
@@ -125,16 +121,25 @@ export default function JsonEditor({ onSendData }: Props) {
       const validFields: FormField[] = [];
       const invalidFieldsNames: string[] = [];
 
-      parsed.forEach((field, index) => {
-        try {
-          const validField = formSchema.parse(field);
-          validFields.push(validField);
-        }
-        catch {
-          const fieldName = field?.name || field?.label || `Champ ${index + 1}`;
-          invalidFieldsNames.push(fieldName);
-        }
-      });
+      parsed.forEach(
+        (field, index) => {
+          try {
+            const validField = formSchema.parse(field);
+            if (validField.type === "select") {
+              validField.options.forEach(
+                (option) => {
+                  if (option.trim() === "") {
+                    throw new Error("Option vide");
+                  }
+                });
+            }
+            validFields.push(validField);
+          }
+          catch {
+            const fieldName = field?.name || field?.label || `Champ ${index + 1}`;
+            invalidFieldsNames.push(fieldName);
+          }
+        });
 
       setParsedFields(validFields);
       setInvalidFields(invalidFieldsNames);
@@ -272,7 +277,7 @@ export default function JsonEditor({ onSendData }: Props) {
                                         value={formField.value}
                                       >
                                         <SelectTrigger className="bg-[var(--input)] border-[var(--border)] text-[var(--foreground)]">
-                                          <SelectValue placeholder="Sélectionnez..." />
+                                          <SelectValue placeholder={(field.placeholder ?? "Sélectionner...")} />
                                         </SelectTrigger>
                                         <SelectContent className="bg-[var(--popover)] border-[var(--border)]">
                                           {"options" in field && Array.isArray(field.options) && field.options.map(option => (
@@ -286,7 +291,7 @@ export default function JsonEditor({ onSendData }: Props) {
                                   : (
                                       <Input
                                         type={field.type}
-                                        placeholder={("placeholder" in field && typeof field.placeholder === "string") ? field.placeholder : ""}
+                                        placeholder={(field.placeholder ?? field.label)}
                                         className="bg-[var(--input)] text-[var(--foreground)] border-[var(--border)] focus:ring-[var(--ring)]"
                                         {...formField}
                                       />
