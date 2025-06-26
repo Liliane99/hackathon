@@ -1,10 +1,19 @@
+import Image from "next/image";
+import React from "react";
+
 export function Footer() {
     return (
       <footer className="bg-gray-50 border-t border-gray-200 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-lg font-semibold text-primary mb-4">TeamBuilder</h3>
+              <Image
+				src="/logos/logo.png"
+				alt="TeamBuilder Logo"
+				width={150}
+				height={50}
+				className="mb-4"
+			  />	
               <p className="text-gray-600 text-sm">
                 La plateforme qui connecte vos projets avec les meilleurs talents et agents IA.
               </p>

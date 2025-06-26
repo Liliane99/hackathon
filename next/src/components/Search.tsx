@@ -1,17 +1,19 @@
+'use client';
+
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search, Zap } from "lucide-react";
 
 const SearchBar = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const [isFocused, setIsFocused] = useState(false);
+	const router = useRouter();
 
 	const handleSearch = (e) => {
 		e.preventDefault();
 		if (searchQuery.trim()) {
-		  console.log("Recherche pour:", searchQuery);
-		  
-		  // Logique d'affichage de la recherche ici
-		  // A faire après le mock des agents IA 
+			console.log("Recherche pour:", searchQuery);
+			router.push('/team'); 
 		}
 	};
 

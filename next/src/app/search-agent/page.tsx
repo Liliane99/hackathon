@@ -15,14 +15,13 @@ export default function SearchAgentPage() {
 				<div className="absolute -top-1 -right-1 w-4 h-4 bg-purple-500 rounded-full animate-ping"></div>
 			  </div>
 			  <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-				Recherche Agent IA
+				Que souhaitez vous faire ?  
 			  </h1>
 			</div>
 			<p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-			  Trouvez le parfait agent IA pour transformer vos projets et automatiser vos tâches
+				Expliquez clairement ce dont vous avez besoin, et nous nous occupons du reste
 			</p>
 		  </div>
-
 		  <SearchBar />
 		</main>
 	  </div>
