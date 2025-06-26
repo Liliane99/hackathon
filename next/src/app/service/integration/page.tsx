@@ -32,6 +32,7 @@ import { z } from "zod";
 import { FormField as JsonFormField } from "@/schemas/formBuilder";
 import { ServiceRepository } from "@/mocks/service";
 import { uuidv7 } from "uuidv7";
+import { toast } from "sonner";
 
 export default function HomePage() {
   const [debugMessage, setDebugMessage] = useState<string>("");
@@ -69,6 +70,7 @@ export default function HomePage() {
       type: "human",
       ...values,
     });
+    toast("Service humain créé avec succès !");
   }
 
   function onSubmitIaService(values: z.infer<typeof createServiceIaSchema>) {
@@ -83,6 +85,7 @@ export default function HomePage() {
         token: values.token,
       },
     });
+    toast("Service IA créé avec succès !");
   }
 
   function onError(errors: Record<string, unknown>) {

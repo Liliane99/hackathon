@@ -19,12 +19,12 @@ export function ProfileFilters({
   selectedSeniority,
   onCategoryChange,
   onTypeChange,
-  onSeniorityChange
+  onSeniorityChange,
 }: ProfileFiltersProps) {
   return (
     <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
       <h3 className="font-semibold text-gray-900">Filtres</h3>
-      
+
       <div>
         <h4 className="text-sm font-medium text-gray-700 mb-2">Catégorie</h4>
         <div className="flex flex-wrap gap-2">

@@ -15,11 +15,13 @@ export function ProfileDetails({ service }: ProfileDetailsProps) {
       <div className="flex items-center gap-4">
         <Avatar className="h-16 w-16">
           <AvatarFallback className="bg-primary/10 text-primary text-lg">
-            {isAI ? (
-              <Bot className="h-8 w-8" />
-            ) : (
-              <User className="h-8 w-8" />
-            )}
+            {isAI
+              ? (
+                  <Bot className="h-8 w-8" />
+                )
+              : (
+                  <User className="h-8 w-8" />
+                )}
           </AvatarFallback>
         </Avatar>
         <div>
@@ -60,7 +62,7 @@ export function ProfileDetails({ service }: ProfileDetailsProps) {
             <div>
               <span className="text-sm font-medium text-gray-700">Paramètres :</span>
               <div className="mt-1 flex flex-wrap gap-1">
-                {service.agentAi.inputParameters.map((param) => (
+                {service.agentAi.inputParameters.map(param => (
                   <Badge key={param} variant="outline" className="text-xs">
                     {param}
                   </Badge>

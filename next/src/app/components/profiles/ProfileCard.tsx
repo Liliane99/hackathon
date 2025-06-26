@@ -19,11 +19,13 @@ export function ProfileCard({ service, onSelect }: ProfileCardProps) {
         <div className="flex items-center gap-3">
           <Avatar>
             <AvatarFallback className="bg-primary/10 text-primary">
-              {isAI ? (
-                <Bot className="h-4 w-4" />
-              ) : (
-                <User className="h-4 w-4" />
-              )}
+              {isAI
+                ? (
+                    <Bot className="h-4 w-4" />
+                  )
+                : (
+                    <User className="h-4 w-4" />
+                  )}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">
@@ -39,20 +41,19 @@ export function ProfileCard({ service, onSelect }: ProfileCardProps) {
         <p className="text-sm text-gray-600 line-clamp-3">
           {service.description}
         </p>
-        
+
         <div className="mt-4 flex items-center justify-between">
           <span className="text-lg font-semibold text-primary">
-            {isAI 
+            {isAI
               ? `${service.price}€/mois`
-              : `${service.pricePerDays}€/jour`
-            }
+              : `${service.pricePerDays}€/jour`}
           </span>
         </div>
       </CardContent>
 
       <CardFooter>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="w-full"
           onClick={() => onSelect?.(service)}
         >
