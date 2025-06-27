@@ -26,7 +26,6 @@ export function Navbar() {
             <Link href="/services" className="text-gray-700 hover:text-primary transition-colors">
               Tous les services
             </Link>
-            <Button variant="outline">Se connecter</Button>
             <Button>Commencer</Button>
           </div>
 
